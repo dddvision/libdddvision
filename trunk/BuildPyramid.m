@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 function pyramid=BuildPyramid(y,LEVELS)
 
 [gi,gj]=ComputeDerivatives2(y);
@@ -23,4 +14,4 @@ for L=2:LEVELS
   pyramid{L}.gj=gj;
 end
 
-return
+end
