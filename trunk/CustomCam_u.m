@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 function [u1,u2]=CustomCam_u(c1,c2,c3,fname)
 
 fid = fopen(fname,'r');
@@ -143,4 +134,4 @@ switch type
     error('unrecognized camera type');
 end
 
-return
+end

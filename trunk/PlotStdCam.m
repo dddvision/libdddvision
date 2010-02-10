@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 function PlotStdCam(x,FOV)
 
 xR=x(1:4);
@@ -35,4 +26,5 @@ set(gca,'Color',[0,0,0],...
   'Units','normalized',...
   'Position',[0 0 1 1]);
 
-return;
+end
+

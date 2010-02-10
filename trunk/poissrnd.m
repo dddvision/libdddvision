@@ -1,14 +1,4 @@
 % Generate a poisson random variable
-%
-
-
-
-
-
-
-
-
-
 function r=poissrnd(m,n,lambda)
 % Knuth method
 L=exp(-lambda);
@@ -32,4 +22,5 @@ r=(k-1);
 %     p = p(t);
 %     r(j) = r(j) + 1;
 %   end
-return;
+end
+

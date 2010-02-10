@@ -1,4 +1,3 @@
-function handle=PlotEllipsoid(mu,covar,dev,c)
 % Plots a semi-transparent covariance ellipsoid in the current axis
 %
 % INPUT ARGUMENTS:
@@ -9,7 +8,7 @@ function handle=PlotEllipsoid(mu,covar,dev,c)
 %
 % RETURN ARGUMENT:
 % handle = handle to the ellipsoid object
-
+function handle=PlotEllipsoid(mu,covar,dev,c)
 % assumed level of detail for mesh
 N=20;
 Np=N+1;
@@ -48,7 +47,7 @@ end
 %check for exact singularity
 if det(covar)==0
   handle=[];
-  return;
+  return
 end
 
 %extract matrix sqrt, adjusted by deviation
@@ -66,4 +65,4 @@ z=reshape(X(3,:),[Np,Np]);
 handle=surface(x,y,z,c*ones(Np,Np),'EdgeColor','n');
 alpha(handle,0.3)
 
-return
+end

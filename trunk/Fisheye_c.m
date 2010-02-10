@@ -5,16 +5,6 @@
 % c2=right from center
 % c3=down from center
 % FOV = currently is a hack to create a mask that limits the field-of-view
-%
-
-
-
-
-
-
-
-
-
 function [c1,c2,c3]=Fisheye_c(m,n,FOV)
 
 phi=zeros(m,n);
@@ -56,4 +46,4 @@ if (FOV~=pi)
   c3(outside)=NaN;
 end  
 
-return
+end

@@ -4,16 +4,6 @@
 %   y1 = array (m-by-n)
 %   y2 = array (m-by-n_
 %   gt = finite difference (m-by-n)
-%
-
-
-
-
-
-
-
-
-
 function gt=ImageDifference(y1,y2)
 
 if (size(y1,3)~=1)|(size(y2,3)~=1)
@@ -31,4 +21,4 @@ gt=filter2(tmask,y2)-filter2(tmask,y1);
 %the above calculation is not defined at the image border, so black it out
 gt=AdjustBorders(gt,1,1);
 
-return;
+end

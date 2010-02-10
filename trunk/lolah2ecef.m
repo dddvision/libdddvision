@@ -10,6 +10,12 @@
 % Ref: http://www.microem.ru/pages/u_blox/tech/dataconvert/GPS.G1-X-00006.pdf
 %      Retrieved 11/30/2009
 function ecef=lolah2ecef(lolah)
+
+% input checking
+if( size(lolah,1)~=3 )
+  error('input must be 3xN');
+end
+
   lon = lolah(1,:);
   lat = lolah(2,:);
   alt = lolah(3,:);

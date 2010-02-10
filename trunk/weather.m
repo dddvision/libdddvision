@@ -1,11 +1,4 @@
-
-
-
-
-
-
-
-
+% A colormap that looks like weather radar
 function f = weather(row)
 
 f = [0,0,0;
@@ -269,4 +262,5 @@ if( nargin==1 )
   f=f(row,:);
 end
 
-return;
+end
+

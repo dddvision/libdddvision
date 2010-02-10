@@ -3,8 +3,6 @@
 % NOTES
 % This function assumes the WGS84 model
 % Latitude is geodetic (not geocentric)
-
-
 function lolah = ecef2lolah(ecef)
 
 % input checking
@@ -26,7 +24,7 @@ lon=RTOD*lon;
 lat=RTOD*lat;
 lolah=[lon;lat;alt];
 
-return;
+end
 
 
 % ECEF to LOLAH conversion accurate near the ellipsoid surface.
@@ -35,7 +33,6 @@ return;
 % J. Zhu, "Conversion of Earth-centered Earth-fixed coordinates to geodetic
 % coordinates," Aerospace and Electronic Systems, vol. 30, pp.
 % 957-961, 1994.
-%
 function [lon,lat,alt]=ecef2lolah_method1(X,Y,Z,a,b)
 f = 1-b/a;
 e2 = 2*f-f^2;
@@ -57,8 +54,11 @@ zo = (b^2*Z)./(a*V);
 alt = U.*( 1 - b^2./(a*V));
 lat = atan( (Z + ep2*zo)./r );
 lon = atan2(Y,X);
-return;
+end
   
+
+
+
 
 % ECEF to LOLAH conversion accurate near the ellipsoid surface.
 %
@@ -125,7 +125,7 @@ return;
 % % correct for numerical instability in altitude near poles
 % k=abs(X)<1 & abs(Y)<1;
 % alt(k) = abs(Z(k))-d;
-% return;
+% end
 
 
 % INACCURATE
@@ -149,7 +149,7 @@ return;
 % r0 = a./sqrt(1+SqRatio*gamma.*gamma);
 % z0 = SqRatio*r0.*gamma;
 % alt = sign(rsq/a^2+z.*z/b^2-1).*sqrt((z-z0).*(z-z0)+(r-r0).*(r-r0));
-% return;
+% end
 
 
 % This function finds a root of the polynomial
@@ -179,7 +179,7 @@ return;
 %     break;
 %   end
 % end
-% return;
+% end
 
 
 % This function evaluates the polynomial

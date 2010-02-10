@@ -6,15 +6,6 @@
 % 
 % OUTPUT
 % ij = nearby indices of true element, 2-by-1
-% 
-
-
-
-
-
-
-
-
 function ij = spiralsearch(h,ijo)
 
 [I,J]=size(h);
@@ -33,7 +24,7 @@ while( (i>0)&&(i<=I)&&(j>0)&&(j<=J) )
   [i,j]=spiral_step(i,j);
 end
 
-return;
+end
 
 
 function [i,j]=spiral_step(i,j)
@@ -78,7 +69,7 @@ end
 % advance block count state
 b = mod(b+1,B);
 
-return;
+end
 
 % % subsequent ridge finding
 % while( (i>1)&&(i<I)&&(j>1)&&(j<J) )

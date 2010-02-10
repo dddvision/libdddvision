@@ -9,6 +9,7 @@
 % NOTES
 % The magnitude of the output vector is the rotation angle in radians
 % By Tony Falcone and David Diel
+
 function V=Matrix2AxisAngle(RR)
   K=size(RR,3);
   V=zeros(3,K);

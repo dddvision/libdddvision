@@ -1,19 +1,10 @@
-function Q=QuatNorm(Q)
 %normalizes each quaternion to have the following properties
 % (1) unit magnitude
 % (2) first element is positive
 %
 % ARGUMENTS
 % Q=quaternions (4-by-n)
-%
-%Copyright David D. Diel as of the most recent modification date.
-%Permission is hereby granted to the following entities
-%for unlimited use and modification of this document:
-%  University of Central Florida
-%  Massachusetts Institute of Technology
-%  Draper Laboratory
-%  Scientific Systems Company
-
+function Q=QuatNorm(Q)
 
 %verify size
 if size(Q,1)~=4
@@ -51,4 +42,5 @@ Q(2,:)=q2./ns;
 Q(3,:)=q3./ns;
 Q(4,:)=q4./ns;
 
-return
+end
+

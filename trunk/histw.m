@@ -8,16 +8,6 @@
 % OUTPUTS
 % h = weighted histogram values
 % bin = data-to-bin index
-%
-
-
-
-
-
-
-
-
-
 function [h,bin]=histw(x,w,edge)
 [cnt,bin]=histc(x,edge);
 N=numel(edge);
@@ -27,4 +17,4 @@ for b=1:numel(w)
   bb=bin(b);
   h(bb)=h(bb)+w(b);
 end
-return;
+end

@@ -1,11 +1,4 @@
-
-
-
-
-
-
-
-
+% A colormap that spans from deep blue to white
 function f = spectrum(row)
 
 f = [0,0,0;
@@ -269,4 +262,5 @@ if( nargin==1 )
   f=f(row,:);
 end
 
-return;
+end
+

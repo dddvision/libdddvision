@@ -9,16 +9,6 @@
 % Xp = system state after the update
 % Pp = state covariance after the update
 % K = Kalman gain
-%
-
-
-
-
-
-
-
-
-
 function [Xp,Pp,K]=KalmanUpdate(Xm,Pm,C,Yres,Q)
 
 %gain
@@ -30,4 +20,4 @@ Xp=Xm+K*Yres;
 %covariance update
 Pp=(eye(size(K,1))-K*C)*Pm;
 
-return
+end

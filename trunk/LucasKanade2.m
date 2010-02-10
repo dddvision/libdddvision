@@ -1,15 +1,5 @@
-
-
-
-
-
-
-
-
-
 function [u,v]=LucasKanade2(fx,fy,ft,win)
 %finds dense velocity image
-
 xx=colfilt(fx.*fx,win,'sliding',@sum);
 yy=colfilt(fy.*fy,win,'sliding',@sum);
 xy=colfilt(fx.*fy,win,'sliding',@sum);
@@ -34,4 +24,4 @@ shift=[
 u=filter2(shift,u);
 v=filter2(shift,v);
 
-return
+end
