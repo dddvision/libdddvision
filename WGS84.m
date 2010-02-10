@@ -1,19 +1,10 @@
-function [EarthMajorRadius,EarthMinorRadius,EarthRotationRate,...
-          EquatorialGravity,PolarGravity,GM,C20]=WGS84()
 % WGS84 Data
 % Minor radius derived from major radius and ellipsoidal flattening
 % References:
 %   WGS84 Implementation Manual, v.2.4, 1998
 %   WGS84: It's definition and relationship to Local Geodetic Systems. NIMA Technical Report, 3rd ed. 2000.
-%
-
-
-
-
-
-
-
-
+function [EarthMajorRadius,EarthMinorRadius,EarthRotationRate,...
+          EquatorialGravity,PolarGravity,GM,C20]=WGS84()
 %raw data
 EarthMajorRadius = 6378137.0; %meters
 EarthRotationRate = 7.292115E-5; %rad/sec
@@ -32,5 +23,5 @@ EquatorialGravity = -9.7803253359-(EarthRotationRate*EarthRotationRate*1000000)*
 %VALUES FROM JIM DONNA
 %PolarGravity=-9.8322131433;
 %EquatorialGravity=-9.8144057073;
+end
 
-return;

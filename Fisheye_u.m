@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 function [u1,u2]=Fisheye_u(c1,c2,c3,FOV)
 %FOV currently unused
 
@@ -25,4 +16,4 @@ u2=scale.*c2;
 u1(behind)=NaN;
 u2(behind)=NaN;  
 
-return
+end

@@ -1,4 +1,3 @@
-function y=Warp(y,P,pad,sz)
 % Performs general projective warping
 % The warping matrix can be a subset of projective,
 %   such as affine, Euclidean, pure translation, or pure rotation
@@ -20,8 +19,7 @@ function y=Warp(y,P,pad,sz)
 %
 % Post-Warp Coordinates
 % Hwarp = P*H
-%
-% Author: David D. Diel
+function y=Warp(y,P,pad,sz)
 
 %size of input images
 [m,n]=size(y);
@@ -47,5 +45,4 @@ tform=maketform('projective',[
 
 %call the transformation function from the image processing toolbox
 y=imtransform(y,tform,'VData',[(1-m)/2 (m-1)/2],'UData',[(1-n)/2 (n-1)/2],'YData',[(1-mout)/2 (mout-1)/2],'XData',[(1-nout)/2 (nout-1)/2],'FillValues',pad);
-
-return
+end

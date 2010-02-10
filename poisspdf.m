@@ -6,15 +6,7 @@
 %
 % OUTPUT
 % y = value of Poisson distribution
-% 
-
-
-
-
-
-
-
-
 function y=poisspdf(x,lambda)
-y=exp(-lambda+x.*log(lambda)-gammaln(x+1));
-return;
+  y=exp(-lambda+x.*log(lambda)-gammaln(x+1));
+end
+

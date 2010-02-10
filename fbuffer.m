@@ -5,23 +5,11 @@
 % 
 % OUTPUT
 % cdata = color image in uint8, M-by-N-by-3
-% 
-
-
-
-
-
-
-
-
-
 function cdata = fbuffer(hfig)
 
 %TODO: update pos(1:2) if figure/axis units are normalized
 
 pos = get(hfig,'Position');
-
-noanimate('save',hfig);
 
 gldata = opengl('data');
 if( strcmp(gldata.Renderer,'None') )
@@ -38,10 +26,9 @@ else
   set(hfig,'PaperPosition',ppos);
 end
 
-noanimate('restore',hfig);
-
 if( numel(cdata)>(pos(3)*pos(4)*3) )
   cdata=cdata(1:pos(4),1:pos(3),:);
 end
 
-return;
+end
+

@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 function [u, v] = LucasKanade(im1, im2, windowSize);
 %LucasKanade  lucas kanade algorithm, without pyramids (only 1 level);
 
@@ -46,3 +37,4 @@ end;
 
 u(isnan(u))=0;
 v(isnan(v))=0;
+end

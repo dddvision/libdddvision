@@ -3,16 +3,6 @@
 % input must be an image in range [0,1]
 % sig is the desired standard deviation of each labeled output class
 % means corresponds to each labeled segment's means
-%
-
-
-
-
-
-
-
-
-
 function [S,means]=HistSeg(I,sig)
 
 [m,n]=size(I);
@@ -47,4 +37,4 @@ for k=1:K
 	closest(winners)=dist(winners);
 end
 
-return
+end

@@ -6,15 +6,6 @@
 %
 % Insert zeros in every alternate row position and conv with mask
 % insert zeros in every alternate clmn position in result and conv with mask'
-%
-
-
-
-
-
-
-
-
 function largeIm = Expand(im)
 
 mask = 2*[0,fspecial('gaussian',[1,6],1)];
@@ -34,4 +25,4 @@ colZeros = colZeros';
 
 largeIm=conv2(colZeros, mask','same');
 
-return;
+end

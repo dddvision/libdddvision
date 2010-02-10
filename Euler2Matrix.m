@@ -1,14 +1,5 @@
 function M=Euler2Matrix(Y)
 %Y must be a 3-element Euler-angle vector
-%
-
-
-
-
-
-
-
-
 Y1=Y(1);
 Y2=Y(2);
 Y3=Y(3);
@@ -39,4 +30,4 @@ M(3,1)=-s2;
 M(3,2)=c2.*s1;
 M(3,3)=c2.*c1;
 
-return;
+end

@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 function [c1,c2,c3,m]=GallIsoCam_c(m,n,FOV)
 %FOV is the horizontal field of view in radians, typically 2*pi
 %not verified
@@ -24,4 +15,4 @@ c1=cos(b).*cosa;
 c2=sin(b).*cosa;
 c3=sin(a);
 
-return
+end
