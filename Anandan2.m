@@ -5,16 +5,6 @@
 % level specifies how many pyramid levels to use
 % itr is the number of iterations per level
 % mask is a weight(x,y) image to be applied to the old(x,y) image
-%
-
-
-
-
-
-
-
-
-
 function [R,T] = Anandan2(new,old,level,itr,mask)
 
 %initialize transformation matrices (M contains R and T)
@@ -151,4 +141,4 @@ for i=level:-1:1
         T=M(1:2,3);
     end
 end
-return
+end

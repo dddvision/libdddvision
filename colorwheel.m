@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 function f = colorwheel(row)
 
 f = [0,0,1;
@@ -269,4 +261,5 @@ if( nargin==1 )
   f=f(row,:);
 end
 
-return;
+end
+
