@@ -1,8 +1,9 @@
-//#include <tchar.h>
-#include "cv.h"
-#include "cxcore.h"
-#include "highgui.h"
 #include "mex.h"
+
+#include <opencv/cv.h>
+#include <opencv/cxcore.h>
+#include <opencv/highgui.h>
+#include <opencv/cvaux.h>
 
 void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
 {
@@ -12,6 +13,7 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
   int m;
   int n;
 
+  IplImage* cImage;
   CvSeq *keypointSequence;
   CvSeq *descriptorSequence;
   CvSeqReader keypointReader;
@@ -20,25 +22,27 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
   CvSURFParams parameters;
   CvMemStorage* storage;
 
+  // TODO: check that input image is uint8 MxNx1
+
   mImage = static_cast<double*>(mxGetData(prhs[0]));
   M = mxGetM(prhs[0]);
   N = mxGetN(prhs[0]);
-  parameters = cvSURFParams(0);
-  parameters.extended = 1;
-  parameters.hessianThreshold = mxGetDouble(prhs[1]);
-  parameters.numOctaves = static_cast<int>(floor(mxGetDouble(prhs[2])));
-  parameters.nOctaveLayers = static_cast<int>(floor(mxGetDouble(prhs[3])));
 
-  IplImage* cImage = cvCreateImage(cvSize(N,M),IPL_DEPTH_8U,1);
+  cImage = cvCreateImage(cvSize(N,M),IPL_DEPTH_8U,1);
 
   for( m=0 ; m<M ; ++m )
   {
     for( n=0 ; n<N ; ++n )
     {
-      cImage->imageData[m*(cImage->widthStep)+n]=static_cast<IPL_DEPTH_8U>(floor(mImage[n*M+m]));
+      cImage->imageData[m*(cImage->widthStep)+n]=mImage[n*M+m];
     }
   }
-  
+
+  parameters = cvSURFParams(0);
+  parameters.extended = 1;
+  parameters.hessianThreshold = mxGetScalar(prhs[1]);
+  parameters.nOctaves = static_cast<int>(floor(mxGetScalar(prhs[2])));
+  parameters.nOctaveLayers = static_cast<int>(floor(mxGetScalar(prhs[3])));
   storage = cvCreateMemStorage(0);
   cvExtractSURF(cImage, NULL, &keypointSequence, &descriptorSequence, storage, parameters);
 
