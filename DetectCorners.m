@@ -1,12 +1,5 @@
 function kappa=DetectCorners(gi,gj,halfwin,method)
 
-
-
-
-
-
-
-
 win=(2*halfwin+1)*[1,1];
 
 %formulate the gradient products
@@ -22,4 +15,5 @@ xy=Smooth2(gxy,win,halfwin/4);
 %calculate corner intensity
 kappa=feval(method,xx,yy,xy);
 
-return
+end
+

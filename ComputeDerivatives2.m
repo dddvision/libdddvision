@@ -1,4 +1,3 @@
-function [fi,fj,ft]=ComputeDerivatives2(y,yref)
 % Computes the gradients of one or two arrays
 % Uses a 4-element finite difference approximation
 % Optionally computes the corresponding difference between arrays
@@ -9,14 +8,8 @@ function [fi,fj,ft]=ComputeDerivatives2(y,yref)
 %   fi = row gradient (m-by-n)
 %   fj = column gradient (m-by-n)
 %   ft = corresponding array differences (m-by-n)
-%
 
-
-
-
-
-
-
+function [fi,fj,ft]=ComputeDerivatives2(y,yref)
 
 if (size(y,3)~=1)
    error('input must be a 2-dimensional array');
@@ -58,4 +51,4 @@ else
   ft=[];
 end
 
-return
+end
