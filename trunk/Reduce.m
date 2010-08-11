@@ -3,14 +3,6 @@
 % The implied coordinate system originates at
 %   the center of the image
 % Special thanks to Sohaib Khan
-%
-
-
-
-
-
-
-
 
 function yout = Reduce(yin)
 
@@ -40,4 +32,5 @@ for layer=1:p
 
 end
 
-return
+end
+

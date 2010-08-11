@@ -5,9 +5,6 @@
 %
 % Where xx,yy,xy are sums of local image gradients
 function val=HarrisCorner(xx,yy,xy)
-
-val=(xx.*yy-xy.*xy)./(xx+yy+eps);
-
+  val=(xx.*yy-xy.*xy)./(xx+yy+eps);
 end
-
 
