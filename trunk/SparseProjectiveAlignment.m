@@ -107,6 +107,9 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       R01=R(base+M);
       R11=R(base+(M+1));
 
+      % interpolates the derivative of 0.5R^2 by solving the following problem 
+      % 0.5*R(x,y)^2=0.5*x^2+0.5*y^2+a*x+b*y+c*x*y+d;
+      
       R00=0.5*R00.*R00;
       R10=0.5*R10.*R10;
       R01=0.5*R01.*R01;
@@ -119,6 +122,9 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
 
       HSRxi=xr+aa+cc.*yr;
       HSRyi=yr+bb+cc.*xr;
+      
+      % HSRxi=HSRx(ii);
+      % HSRyi=HSRy(ii);
       
       xs=xp-HSRxi;
       ys=yp-HSRyi;
