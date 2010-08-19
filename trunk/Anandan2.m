@@ -130,7 +130,7 @@ for i=level:-1:1
         B(5,1) = -sum(a5.*ft);
         B(6,1) = -sum(a6.*ft);
         
-        p=inv(A)*B;
+        p=A\B;
         
         dM=[[p(1)+1 p(2)   p(3)]
             [p(4)   p(5)+1 p(6)]

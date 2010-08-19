@@ -164,7 +164,7 @@ for i=level:-1:1
         if condest(A)>(10^16);
             disp('projective calculation may be inaccurate');   
         else
-            p=inv(A)*B;
+            p=A\B;
         
             dM=[p(1),p(2),p(3);
             p(4),p(5),p(6);
