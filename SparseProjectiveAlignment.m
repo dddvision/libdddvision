@@ -68,11 +68,10 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
     R=double(bwdist(lowPeaksImage,'euclidean'));
 
     % compute half squared distance
-    HSR=0.5*(R.*R);
+    %HSR=0.5*(R.*R);
 
     % compute gradients of half squared distance
-    [HSRy,HSRx]=gradient(HSR);
-    %[HSRx,HSRy]=ComputeDerivatives2(HSR);
+    %[HSRy,HSRx]=gradient(HSR);
   
     % solve for projective model
     [xo,yo]=ind2sub([M,N],highPeaks); 
@@ -82,8 +81,6 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       den=P(3,1)*x+P(3,2)*y+P(3,3);
       xp=(P(1,1)*x+P(1,2)*y+P(1,3))./den;
       yp=(P(2,1)*x+P(2,2)*y+P(2,3))./den;
-      xp=floor(xp+0.5);
-      yp=floor(yp+0.5);
 
       % stay within borders by at least 1 pixel
       good=(xp>1)&(xp<M)&(yp>1)&(yp<N);
@@ -92,19 +89,37 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       x=x(good);
       y=y(good);
       
-      % convert indices
-      ip=sub2ind([M,N],xp,yp);
-      
       % exclude features that are badly mismatched
-      good=(R(ip)<(3*sigma));
+      good=(R(sub2ind([M,N],floor(xp+0.5),floor(yp+0.5)))<(3*sigma));
       xp=xp(good);
       yp=yp(good);
       x=x(good);
       y=y(good);
-      ip=ip(good);
+      
+      xf=floor(xp);
+      yf=floor(yp);
+      xr=xp-xf;
+      yr=yp-yf;
 
-      HSRxi=HSRx(ip);
-      HSRyi=HSRy(ip);
+      base=xf+M*(yf-1);
+      R00=R(base);
+      R10=R(base+1);
+      R01=R(base+M);
+      R11=R(base+(M+1));
+
+      R00=0.5*R00.*R00;
+      R10=0.5*R10.*R10;
+      R01=0.5*R01.*R01;
+      R11=0.5*R11.*R11;
+
+      aa=R10-R00-0.5;
+      bb=R01-R00-0.5;
+      cc=R00+R11-R10-R01;
+      % dd=R00;
+
+      HSRxi=xr+aa+cc.*yr;
+      HSRyi=yr+bb+cc.*xr;
+      
       xs=xp-HSRxi;
       ys=yp-HSRyi;
       
