@@ -12,6 +12,8 @@ dif=xx-yy;
 a=(xx+yy)/2;
 b=sqrt(dif.*dif+4*xy.*xy)/2;
 lam1=a-b;
-lam2=a+b;
+if(nargout>1)
+  lam2=a+b;
+end
 
 end
