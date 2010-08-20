@@ -1,15 +1,19 @@
-function [M] = Projective(new,old,level,itr,M,mask)
-% M=Projective() finds affine parameters to transform the old image into the new one
+% Finds projective parameters to transform the old image into the new one
 %
-% M=[[a1 a2 b1]
+% INPUT
+% new = new image
+% old = old image
+% level = specifies how many pyramid levels to use
+% itr = number of iterations per level
+% mask = weight(x,y) image to be applied to the old(x,y) image
+%
+% OUTPUT
+% M = projective alignment parameters in the form
+%   [[a1 a2 b1]
 %    [a3 a4 b2]
 %    [c1 c2 1 ]];
-% level specifies how many pyramid levels to use
-% itr is the number of iterations per level
-% mask is a weight(x,y) image to be applied to the old(x,y) image
-%
-%Copyright David D. Diel Dec. 3, 2001
-%all rights reserved
+
+function M = ProjectiveAlignment(new,old,level,itr,M,mask)
 
 I{1}=new;
 Iold{1}=old;
