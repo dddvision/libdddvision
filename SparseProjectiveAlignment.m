@@ -85,10 +85,10 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
     R=double(bwdist(lowPeaksImage,'euclidean'));
 
     % compute half squared distance
-    %HSR=0.5*(R.*R);
+%    HSR=0.5*(R.*R);
 
     % compute gradients of half squared distance
-    %[HSRy,HSRx]=gradient(HSR);
+%    [HSRy,HSRx]=gradient(HSR);
   
     % solve for projective model
     [xo,yo]=ind2sub([M,N],highPeaks); 
