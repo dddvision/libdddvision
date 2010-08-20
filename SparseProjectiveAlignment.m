@@ -1,3 +1,20 @@
+% Computes projective alignment parameters
+%
+% INPUT
+% newImage = image in which to find feature matches for the given high peaks
+% highPeaks = one dimensional indices of features in the previous image
+% method = the name of a corner computation function
+% sigma = method to use when smoothing corners
+% numPoints = the maximum number of corners to find in the new image
+% numIterations = the number of iterations to use when computing the projective matrix
+%
+% OUTPUT
+% P = projective alignment parameters in the form
+%   [[a1 a2 b1]
+%    [a3 a4 b2]
+%    [c1 c2 1 ]]
+% lowPeaks = corners found in the new image
+%
 % A = 
 % [ x, y, 1, 0, 0, 0, -x*xs, -xs*y]
 % [ 0, 0, 0, x, y, 1, -x*ys, -y*ys]
@@ -86,15 +103,11 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       good=(xp>1)&(xp<M)&(yp>1)&(yp<N);
       xp=xp(good);
       yp=yp(good);
-      x=x(good);
-      y=y(good);
       
       % exclude features that are badly mismatched
       good=(R(sub2ind([M,N],floor(xp+0.5),floor(yp+0.5)))<(3*sigma));
       xp=xp(good);
       yp=yp(good);
-      x=x(good);
-      y=y(good);
       
       xf=floor(xp);
       yf=floor(yp);
@@ -131,6 +144,16 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       
       A=zeros(8,8);
       B=zeros(8,1);
+      
+      % shift to relative coordinates
+      x=xp;
+      y=yp;
+      
+      % normalize coordinates
+      x=x/N;
+      y=y/N;
+      xs=xs/N;
+      ys=ys/N;
       
       xx=x.*x;
       xy=x.*y;
@@ -203,7 +226,15 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       B(8)=-sum(yxsxs+yysys);
 
       X=A\B;
-      P=[X(1),X(2),X(3);X(4),X(5),X(6);X(7),X(8),1];
+      dP=[X(1),X(2),X(3);X(4),X(5),X(6);X(7),X(8),1];
+      
+      % undo normalization
+      dP(1:2,3)=dP(1:2,3)*N;
+      dP(3,1:2)=dP(3,1:2)/N;
+      
+      % undo relative coordinates
+      P=dP*P;
+      P=P/P(9);      
     end
   end
 
