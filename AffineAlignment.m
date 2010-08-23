@@ -1,17 +1,20 @@
-% Finds affine parameters to transform the old image into the new one
+% Computes affine parameters that transform the old image into the new one
 %
 % INPUT
 % new = new image
 % old = old image
 % level = specifies how many pyramid levels to use
 % itr = number of iterations per level
-% mask = weight(x,y) image to be applied to the old(x,y) image
-
+% mask = logical array that selects regions in the image to process
+%
 % OUTPUT
 % M = affine alignment parameters in the form
 %   [[a1 a2 b1]
 %    [a3 a4 b2]
 %    [ 0  0 1 ]];
+%
+% NOTES
+% The coordinate system origin is at the image center
 
 function M = AffineAlignment(new,old,level,itr,M,mask)
 
