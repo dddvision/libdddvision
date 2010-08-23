@@ -97,12 +97,6 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
     % compute distance to nearest peak
     R=double(bwdist(lowPeaksImage,'euclidean'));
 
-    % compute half squared distance
-%    HSR=0.5*(R.*R);
-
-    % compute gradients of half squared distance
-%    [HSRy,HSRx]=gradient(HSR);
-
     % get image centered coordinates
     [xo,yo]=ind2sub([M,N],highPeaks);
     xo=xo-xc;
@@ -157,8 +151,9 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       HSRxi=xr+aa+cc.*yr;
       HSRyi=yr+bb+cc.*xr;
       
-      % HSRxi=HSRx(ii);
-      % HSRyi=HSRy(ii);
+      % minimize the SAD instead of the SSD
+      HSRxi=sign(HSRxi).*sqrt(abs(HSRxi));
+      HSRyi=sign(HSRyi).*sqrt(abs(HSRyi));
 
       % convert to image centered coordinates
       xp=xp-xc;
@@ -166,9 +161,6 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       
       xs=xp-HSRxi;
       ys=yp-HSRyi;
-      
-      A=zeros(8,8);
-      B=zeros(8,1);
       
       % shift to relative coordinates
       x=xp;
@@ -206,6 +198,8 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       xyxsxs=xy.*xsxs;
       xyysys=xy.*ysys;
       
+      A=zeros(8,8);
+      
       A(1,1)=sum(xx);
       A(1,2)=sum(xy);
       A(1,3)=sum(x);
@@ -240,6 +234,8 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       A(7,8)=sum(xyxsxs+xyysys);
       A(8,7)=A(7,8);
       A(8,8)=sum(yyxsxs+yyysys);
+      
+      B=zeros(8,1);
       
       B(1)=sum(xxs);
       B(2)=sum(yxs);
