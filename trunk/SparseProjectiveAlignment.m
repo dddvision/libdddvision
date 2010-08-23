@@ -7,6 +7,7 @@
 % sigma = method to use when smoothing corners
 % numPoints = the maximum number of corners to find in the new image
 % numIterations = the number of iterations to use when computing the projective matrix
+% mask = logical array that selects regions in the image to process
 %
 % OUTPUT
 % P = projective alignment parameters in the form
@@ -14,6 +15,9 @@
 %    [a3 a4 b2]
 %    [c1 c2 1 ]]
 % lowPeaks = corners found in the new image
+%
+% NOTES
+% The coordinate system origin is at the image center
 %
 % A = 
 % [ x, y, 1, 0, 0, 0, -x*xs, -xs*y]
@@ -53,7 +57,7 @@
 % [-x*xs*xs - x*ys*ys]
 % [-y*xs*xs - y*ys*ys]
 
-function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,numPoints,numIterations)
+function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,numPoints,numIterations,mask)
 
   % initialize P
   P=eye(3);
@@ -70,12 +74,21 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
   % find peaks
   allPeaks=(kappa==LocalMAX(kappa,[3,3]));
   
-  % find high and somewhat high peaks
+  % only select masked region
+  if(nargin>6)
+    allPeaks=allPeaks&mask;
+  end
+  
+  % find linear indices of low peaks
   peakIndices=find(allPeaks);
   [val,ind]=sort(kappa(peakIndices),'descend');
   lowPeaks=peakIndices(ind(1:min(numPoints,numel(ind))));
   
   if(~isempty(highPeaks))
+    
+    % compute image center and bounds
+    xc=(M+1)/2;
+    yc=(N+1)/2;
   
     % construct low peak image
     lowPeaksImage=false(M,N);
@@ -89,17 +102,25 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
 
     % compute gradients of half squared distance
 %    [HSRy,HSRx]=gradient(HSR);
+
+    % get image centered coordinates
+    [xo,yo]=ind2sub([M,N],highPeaks);
+    xo=xo-xc;
+    yo=yo-yc;
   
     % solve for projective model
-    [xo,yo]=ind2sub([M,N],highPeaks); 
     for k=1:numIterations
       x=xo;
       y=yo;
       den=P(3,1)*x+P(3,2)*y+P(3,3);
       xp=(P(1,1)*x+P(1,2)*y+P(1,3))./den;
       yp=(P(2,1)*x+P(2,2)*y+P(2,3))./den;
+      
+      % convert to array coordinates
+      xp=xp+xc;
+      yp=yp+yc;
 
-      % stay within borders by at least 1 pixel
+      % stay within borders
       good=(xp>1)&(xp<M)&(yp>1)&(yp<N);
       xp=xp(good);
       yp=yp(good);
@@ -138,6 +159,10 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       
       % HSRxi=HSRx(ii);
       % HSRyi=HSRy(ii);
+
+      % convert to image centered coordinates
+      xp=xp-xc;
+      yp=yp-yc;
       
       xs=xp-HSRxi;
       ys=yp-HSRyi;
