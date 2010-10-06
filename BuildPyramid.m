@@ -1,17 +1,19 @@
 function pyramid=BuildPyramid(y,LEVELS)
 
-[gi,gj]=ComputeDerivatives2(y);
-pyramid{1}.y=y;
-pyramid{1}.gi=gi;
-pyramid{1}.gj=gj;
+  pyramid = cell(LEVELS,1);
 
-for L=2:LEVELS
-  y=Reduce(y);
   [gi,gj]=ComputeDerivatives2(y);
-  
-  pyramid{L}.y=y;
-  pyramid{L}.gi=gi;
-  pyramid{L}.gj=gj;
-end
+  pyramid{1}.y=y;
+  pyramid{1}.gi=gi;
+  pyramid{1}.gj=gj;
+
+  for L=2:LEVELS
+    y=Reduce(y);
+    [gi,gj]=ComputeDerivatives2(y);
+
+    pyramid{L}.y=y;
+    pyramid{L}.gi=gi;
+    pyramid{L}.gj=gj;
+  end
 
 end
