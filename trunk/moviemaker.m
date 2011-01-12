@@ -1,30 +1,22 @@
-
-
-
-
-
-
-
-
 close all;
 clear classes;
 drawnow;
 
 %filename settings
-INPUT_DIRECTORY='/projects/1490/software/functionalnavigation/trunk/';
-INPUT_STUB='';
-INPUT_EXT='.png';
-OUTPUT_DIRECTORY='/projects/1490/figures/movies/';
-OUTPUT_STUB='tommas_r259';
-NUMBER_FORMAT='%06d';
+INPUT_DIRECTORY='/projects/InertiaPlusImages/scenes/Desert/';
+INPUT_STUB='desert';
+INPUT_EXT='.bmp';
+OUTPUT_DIRECTORY='/projects/InertiaPlusImages/scenes/Desert/';
+OUTPUT_STUB='test';
+NUMBER_FORMAT='%04d';
 FRAME_BEGIN=0;
 FRAME_INC=1;
-FRAME_END=Inf;
+FRAME_END=1680; % can be Inf
 SHOW_IMAGES=false;
 
 %Codec playback settings
 COMPRESSION='none'; %('FFDS'),'Indeo5','Cinepak','MPG4' (size must be N*16)
-FPS=3; %(12.595 for Lumenera) frames per second
+FPS=15; %(12.595 for Lumenera) frames per second
 KEY_FPS=1; %(1/8) is typical for MPG4
 QUALITY=100; %(100), does not affect Cinepak
 
@@ -35,7 +27,7 @@ try
   for frame = FRAME_BEGIN:FRAME_INC:FRAME_END
     fprintf('\n%d',frame);
     
-    [X,MAP]=imread(fullfile(INPUT_DIRECTORY,[num2str(frame,NUMBER_FORMAT),INPUT_STUB,INPUT_EXT])); 
+    [X,MAP]=imread(fullfile(INPUT_DIRECTORY,[INPUT_STUB,num2str(frame,NUMBER_FORMAT),INPUT_EXT])); 
     %[Y,YMAP]=imread(fullfile('/home/ddiel/flight47/Combined',[num2str(frame,NUMBER_FORMAT),INPUT_STUB,INPUT_EXT])); 
     %X=uint8(ReadBinPGM([fullfile(INPUT_DIRECTORY,INPUT_STUB),num2str(frame,NUMBER_FORMAT),INPUT_EXT]));
     %MAP=gray(256);
@@ -90,5 +82,5 @@ try
 catch err
   fprintf('\n%s',err.message);
   fprintf('\nDone');
-  mov = close(mov);
 end
+mov = close(mov);
