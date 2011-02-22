@@ -1,22 +1,10 @@
-% Expand2() computes smaller layer of a conservative pyramid
-%
-
-
-
-
-
-
-
-
-function largeIm=Expand2(im)
-
-[m,n]=size(im);
-largeIm=zeros(2*m,2*n);
-
-im=im/4;
-
-largeIm(1:2:end,1:2:end)=im;
-largeIm(2:2:end,1:2:end)=im;
-largeIm(1:2:end,2:2:end)=im;
-largeIm(2:2:end,2:2:end)=im;
-return
+% Computes smaller layer of a conservative pyramid
+function y = Expand2(x)
+  [M, N] = size(x);
+  y = zeros(2*M, 2*N);
+  x = x/4;
+  y(1:2:end, 1:2:end) = x;
+  y(2:2:end, 1:2:end) = x;
+  y(1:2:end, 2:2:end) = x;
+  y(2:2:end, 2:2:end) = x;
+end
