@@ -1,14 +1,14 @@
-% Calculates the probability density of the chi-squared distribution
-%      
-% INPUT
-% x = number in domain of chi-squared distribution
-% nu = degrees of freedom parameter
-%
-% OUTPUT
-% y = value of the chi-squared distribution
-function y = chisqpdf(x, nu)
-  a = nu/2;
+% Central chi-square probability density function
+function y = chisqpdf(x, k)
+  a = k/2;
   b = 2^a;
   c = b*gamma(a);
-  y = ((x.^(a-1))./exp(x/2))./c;
+  d = x.^(a-1);
+  f = exp(x/2);
+  g = f.*c;
+  y = d./g;
+  bad = (k>100)|(d>(1/eps))|(g<eps); % identify numerical instability
+  z = x(bad)-k+2; % adjust for degrees of freedom
+  s = 4*k;
+  y(bad) = exp(-z.*z/s)/sqrt(pi*s);
 end
