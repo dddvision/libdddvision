@@ -1,18 +1,10 @@
-function gNED=GravityModel(NED,gamma,model)
 % 2-D ellipsoidal 1/r falloff gravity potential model
 % 
 % NED = Earth surface relative coordinates in North-East-Down frame 
 % gamma = geodetic latitude of NED frame origin
 % model = gravity model ('Harmonic2','NearEarth')
 % gNED = gradient of the potential field viewed in NED frame
-%
-
-
-
-
-
-
-
+function gNED=GravityModel(NED,gamma,model)
 
 N=NED(1,:);
 E=NED(2,:);
