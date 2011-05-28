@@ -1,4 +1,3 @@
-function [qi,qidot]=QuatInterp(method,q,t,ti,vdot)
 % performs quaternion interpolation
 %
 % INPUT:
@@ -16,13 +15,11 @@ function [qi,qidot]=QuatInterp(method,q,t,ti,vdot)
 % 'linear'
 % 'hermite'
 %
+% REFERENCE
+% Myoung-Jun Kim, Myung-Soo Kim, and Sung Yong Shin. A General Construction Scheme for Unit Quaternion 
+% Curves with Simple High Order Derivatives. In Proc. of SIGGRAPH, pp. 369-376, 1995.
 
-
-
-
-
-
-
+function [qi,qidot]=QuatInterp(method,q,t,ti,vdot)
 
 [m,n]=size(q);
 if m~=4
