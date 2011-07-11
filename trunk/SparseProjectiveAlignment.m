@@ -19,10 +19,11 @@
 % NOTES
 % The coordinate system origin is at the image center
 %
+% ALGORITHM
 % The algorithm estimates the projective parameters that relate two images, given that a single 
 % nearly planar textured surface is observed in both images. It implements a computational technique 
 % that achieves faster execution than the previous state of the art. It does this by quickly 
-% reducing the O(106) pixels of each image to a sparse set of O(103) salient points, a step so 
+% reducing the O(10^6) pixels of each image to a sparse set of O(10^3) salient points, a step so 
 % drastic that it trivializes all following computations. The next step is to compute the image 
 % domain distance transform of the selected points. Then, the set of points in the first image 
 % are reprojected onto the distance transform of the second image based on an initial guess of 
