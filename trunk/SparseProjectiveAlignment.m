@@ -15,6 +15,7 @@
 %    [a3 a4 b2]
 %    [c1 c2 1 ]]
 % lowPeaks = corners found in the new image
+% xyCov = estimate of the covariance of the coordinate transformation on a per pixel basis 
 %
 % NOTES
 % The coordinate system origin is at the image center
@@ -69,7 +70,7 @@
 % [-x*xs*xs - x*ys*ys]
 % [-y*xs*xs - y*ys*ys]
 
-function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,numPoints,numIterations,mask)
+function [P,lowPeaks,xyCov]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,numPoints,numIterations,mask)
 
   % initialize P
   P=eye(3);
@@ -160,12 +161,16 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       cc=R00+R11-R10-R01;
       % dd=R00;
 
-      HSRxi=xr+aa+cc.*yr;
-      HSRyi=yr+bb+cc.*xr;
+      SDRxi=xr+aa+cc.*yr;
+      SDRyi=yr+bb+cc.*xr;
       
       % minimize the SAD instead of the SSD
-      HSRxi=sign(HSRxi).*sqrt(abs(HSRxi));
-      HSRyi=sign(HSRyi).*sqrt(abs(HSRyi));
+      ADRxi=sqrt(abs(SDRxi));
+      ADRyi=sqrt(abs(SDRyi));
+      
+      % restore the sign
+      HSRxi=sign(SDRxi).*ADRxi;
+      HSRyi=sign(SDRyi).*ADRyi;
 
       % convert to image centered coordinates
       xp=xp-xc;
@@ -259,6 +264,11 @@ function [P,lowPeaks]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,
       B(8)=-sum(yxsxs+yysys);
 
       X=A\B;
+      
+      if(k==numIterations)
+        xyCov = cov([HSRxi,HSRyi]);
+      end
+        
       dP=[X(1),X(2),X(3);X(4),X(5),X(6);X(7),X(8),1];
       
       % undo normalization
