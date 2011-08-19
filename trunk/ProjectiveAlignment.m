@@ -16,7 +16,7 @@
 % NOTES
 % The coordinate system origin is at the image center
 
-function M = ProjectiveAlignment(new,old,level,itr,M,mask)
+function [M, xyCov] = ProjectiveAlignment(new,old,level,itr,M,mask)
 
   I=cell(level,1);
   Iold=cell(level,1);
@@ -176,16 +176,22 @@ function M = ProjectiveAlignment(new,old,level,itr,M,mask)
       B(7,1) = sum(E.*a7);
       B(8,1) = sum(E.*a8);
 
-      if condest(A)>(10^16);
-        disp('projective calculation may be inaccurate');   
+      if((i==1)&&(j==itr))
+        [Vcov, Dcov] = eig(cov([fx,fy]));
+        xyCov = Vcov*(diag((mean(abs(ft))^2)./diag(Dcov)))*Vcov';  
       end
+      
+      if( condest(A)>(1/eps) )
+        dM = eye(3);
+      else      
+        p=A\B;
 
-      p=A\B;
-
-      dM=[[p(1),p(2),p(3)]
-          [p(4),p(5),p(6)]
-          [p(7),p(8),   1]];
-
+        dM=[[p(1),p(2),p(3)]
+            [p(4),p(5),p(6)]
+            [p(7),p(8),   1]];
+      end
+      
+      % undo relative coordinates
       M=dM*M;
       M=M/M(9);
     end

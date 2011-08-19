@@ -263,17 +263,23 @@ function [P,lowPeaks,xyCov]=SparseProjectiveAlignment(newImage,highPeaks,method,
       B(7)=-sum(xxsxs+xysys);
       B(8)=-sum(yxsxs+yysys);
 
-      X=A\B;
-      
       if(k==numIterations)
         xyCov = cov([HSRxi,HSRyi]);
       end
-        
-      dP=[X(1),X(2),X(3);X(4),X(5),X(6);X(7),X(8),1];
       
-      % undo normalization
-      dP(1:2,3)=dP(1:2,3)*N;
-      dP(3,1:2)=dP(3,1:2)/N;
+      if( condest(A)>(1/eps) )      
+        X=A\B;
+
+        dP=[[X(1),X(2),X(3)]
+            [X(4),X(5),X(6)]
+            [X(7),X(8),   1]];
+
+        % undo normalization
+        dP(1:2,3)=dP(1:2,3)*N;
+        dP(3,1:2)=dP(3,1:2)/N;
+      else
+        dP = eye(3);
+      end
       
       % undo relative coordinates
       P=dP*P;
