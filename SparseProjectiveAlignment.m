@@ -263,7 +263,7 @@ function [P,lowPeaks,xyCov]=SparseProjectiveAlignment(newImage,highPeaks,method,
       B(7)=-sum(xxsxs+xysys);
       B(8)=-sum(yxsxs+yysys);
 
-      if(k==numIterations)
+      if((nargout>2)&&(k==numIterations))
         xyCov = cov([HSRxi,HSRyi]);
       end
       

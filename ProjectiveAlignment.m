@@ -176,7 +176,7 @@ function [M, xyCov] = ProjectiveAlignment(new,old,level,itr,M,mask)
       B(7,1) = sum(E.*a7);
       B(8,1) = sum(E.*a8);
 
-      if((i==1)&&(j==itr))
+      if((nargout>1)&&(i==1)&&(j==itr))
         [Vcov, Dcov] = eig(cov([fx,fy]));
         xyCov = Vcov*(diag((mean(abs(ft))^2)./diag(Dcov)))*Vcov';  
       end
