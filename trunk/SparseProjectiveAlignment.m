@@ -69,7 +69,28 @@
 % [                ys]
 % [-x*xs*xs - x*ys*ys]
 % [-y*xs*xs - y*ys*ys]
-
+%
+% EXAMPLE
+% method = 'HarrisCorner';
+% indices = 73:136;
+% halfwin = 2;
+% sigma = 2;
+% numPoints = 300;
+% numIterations = 3;
+% stdThresh = 0.005;
+% border = 20;
+% levels = 2;
+% yold = getImage(1);
+% [gi, gj] = ComputeDerivatives2(yold);
+% kappa = DetectCorners(gi, gj, halfwin, method);
+% allPeaks = (kappa==LocalMAX(kappa,[3,3]));
+% allPeaks = allPeaks&(LocalSTD(yold, [1, 1]+2*halfwin)>stdThresh)&RemoveBorders(ones(size(yold)), border);
+% highPeaks = find(allPeaks);
+% y = getImage(2);
+% mask = (LocalSTD(y, [1, 1]+2*halfwin)>stdThresh)&RemoveBorders(ones(size(y)), border);
+% [P, lowPeaks, xyCov1] = SparseProjectiveAlignment(y, highPeaks, method, sigma, numPoints, numIterations, mask);
+% [P, xyCov2] = ProjectiveAlignment(y, yold, levels, numIterations, P, mask);
+  
 function [P,lowPeaks,xyCov]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,numPoints,numIterations,mask)
 
   % initialize P
