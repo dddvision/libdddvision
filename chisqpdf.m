@@ -12,3 +12,12 @@ function y = chisqpdf(x, k)
   s = 4*k;
   y(bad) = exp(-z.*z/s)/sqrt(pi*s);
 end
+
+% function chisqpdfTest()
+%   N = 300;
+%   sigma = 0.003;
+%   residual = 0.003*randn(1,N);
+%   y = sum(residual.*residual)/sigma/sigma;
+%   -log(chisqpdf(y, N)/chisqpdf(N-2, N))
+% end
+

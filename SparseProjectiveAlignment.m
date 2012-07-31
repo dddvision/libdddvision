@@ -21,16 +21,28 @@
 % The coordinate system origin is at the image center
 %
 % ALGORITHM
-% The algorithm estimates the projective parameters that relate two images, given that a single 
-% nearly planar textured surface is observed in both images. It implements a computational technique 
-% that achieves faster execution than the previous state of the art. It does this by quickly 
-% reducing the O(10^6) pixels of each image to a sparse set of O(10^3) salient points, a step so 
-% drastic that it trivializes all following computations. The next step is to compute the image 
-% domain distance transform of the selected points. Then, the set of points in the first image 
-% are reprojected onto the distance transform of the second image based on an initial guess of 
-% projective parameters. This reprojection process is repeated, similar to gradient descent, until 
-% the points fall into the minima and the best fit parameters are obtained. Note that feature 
-% correspondence is not computed.
+% The Fast Image Matching Algorithm (FIMA) algorithm estimates the continuous coordinate mapping between two images.
+% Currently, the algorithm assumes a perspective camera model and a single approximately planar textured surface visible
+% in both images. These assumptions allow the mapping to be modeled by eight projective parameters. It implements a
+% computational technique that achieves faster execution than the previous state of the art.
+%
+% The first step in FIMA is to quickly reduce the O(10^6) pixels of each image to a sparse set of O(10^3) salient
+% points. This is done using a standard corner detector (Harris1988), followed by application-specific removal of points
+% (e.g. near moving targets). Next, FIMA computes the image domain distance transform (BWDIST) of the selected points.
+% FIMA then exploits the fact that the gradients of the distance transform point toward its minima. The set of points in
+% the first image are reprojected onto the distance transform of the second image based on an initial guess of
+% projective parameters. Then, iterative gradient descent with point-wise reprojection is repeated until the points fall
+% into the minima. By this method, a set of projective parameters are obtained.
+%
+% [BWDIST] Maurer, Calvin, Rensheng Qi, and Vijay Raghavan, "A Linear Time Algorithm for Computing Exact Euclidean
+% Distance Transforms of Binary Images in Arbitrary Dimensions," IEEE Transactions on Pattern Analysis and Machine
+% Intelligence, Vol. 25, No. 2, February 2003, pp. 265-270.
+%
+% [Harris1988] C. Harris and M. Stephens (1988). "A combined corner and edge detector". Proceedings of the 4th Alvey
+% Vision Conference. pp. 147–151.
+%
+% [Mann1997] Steve Mann and Rosalind W. Picard, "Video Orbits of the Projective Group: A Simple Approach to Featureless
+% Estimation of Parameters," IEEE Trans. on Image Processing, v.6, 1997.
 %
 % A = 
 % [ x, y, 1, 0, 0, 0, -x*xs, -xs*y]
