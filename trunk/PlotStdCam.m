@@ -2,7 +2,7 @@ function PlotStdCam(x,FOV)
 
 xR=x(1:4);
 xT=x(5:7);
-R=Quat2Matrix(xR);
+R=tom.Rotation.quatToMatrix(xR);
 
 if nargin<2
   FOV=pi/2;
@@ -27,4 +27,3 @@ set(gca,'Color',[0,0,0],...
   'Position',[0 0 1 1]);
 
 end
-

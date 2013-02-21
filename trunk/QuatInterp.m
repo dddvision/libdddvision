@@ -51,10 +51,10 @@ end
 %calculations used by all algorithms
 dq=zeros(4,n-1);
 for j=1:(n-1)
-  dq(:,j)=Quat2Homo(QuatConj(q(:,j)))*q(:,j+1); %incremental rotations
+  dq(:,j)=tom.Rotation.quatToHomo(tom.Rotation.quatInv(q(:,j)))*q(:,j+1); %incremental rotations
   dq(:,j)=dq(:,j)*sign(dq(1,j)); %unwrap rotations (may not be necessary)
 end
-dv=Quat2AxisAngle(dq); %incremental rotations in axis-angle form
+dv=tom.Rotation.quatToAxis(dq); %incremental rotations in axis-angle form
 
 %for now, assume ti is always increasing and within the bounds of t,
 %else return NaN or possibly crash
@@ -74,8 +74,8 @@ switch method
       qo=q(:,j);
       Ts=t(j+1)-t(j);
       dt=(ti(i)-t(j))/Ts;
-      qi(:,i)=Quat2Homo(qo)*AxisAngle2Quat(dt*dv(:,j));  %qi(:,i)=SLERP(q(:,j),q(:,j+1),dt);
-      qidot(:,i)=Quat2Homo(qi(:,i))*[0;dv(:,j)]/Ts;
+      qi(:,i)=tom.Rotation.quatToHomo(qo)*tom.Rotation.axisToQuat(dt*dv(:,j));  %qi(:,i)=SLERP(q(:,j),q(:,j+1),dt);
+      qidot(:,i)=tom.Rotation.quatToHomo(qi(:,i))*[0;dv(:,j)]/Ts;
     end
     
   case 'hermite'
@@ -93,25 +93,26 @@ switch method
       qb=q(:,j+1);
       w1=vdot(:,j)/3;
       w3=vdot(:,j+1)/3;
-      w2=Quat2AxisAngle(Quat2Homo(QuatConj(AxisAngle2Quat(w1)))*Quat2Homo(dq(:,j))*QuatConj(AxisAngle2Quat(w3)));
+      w2=tom.Rotation.quatToAxis(tom.Rotation.quatToHomo(tom.Rotation.quatInv(tom.Rotation.axisToQuat(w1)))*...
+        tom.Rotation.quatToHomo(dq(:,j))*tom.Rotation.quatInv(tom.Rotation.axisToQuat(w3)));
       B=Bh(dt);
       Bd=Bhd(dt);
-      qo=Quat2Homo(qa);
-      exp1=Quat2Homo(AxisAngle2Quat(B(1)*w1));
-      exp2=Quat2Homo(AxisAngle2Quat(B(2)*w2));
-      exp3=Quat2Homo(AxisAngle2Quat(B(3)*w3));
-      wbd1=Quat2Homo([0;Bd(1)*w1]);
-      wbd2=Quat2Homo([0;Bd(2)*w2]);
-      wbd3=Quat2Homo([0;Bd(3)*w3]);
-      qi(:,i)=qo*exp1*exp2*Homo2Quat(exp3);
-      qidot(:,i)=qo*exp1*wbd1*exp2*Homo2Quat(exp3) + qo*exp1*exp2*wbd2*Homo2Quat(exp3) + qo*exp1*exp2*exp3*Homo2Quat(wbd3);
+      qo=tom.Rotation.quatToHomo(qa);
+      exp1=tom.Rotation.quatToHomo(tom.Rotation.axisToQuat(B(1)*w1));
+      exp2=tom.Rotation.quatToHomo(tom.Rotation.axisToQuat(B(2)*w2));
+      exp3=tom.Rotation.quatToHomo(tom.Rotation.axisToQuat(B(3)*w3));
+      wbd1=tom.Rotation.quatToHomo([0;Bd(1)*w1]);
+      wbd2=tom.Rotation.quatToHomo([0;Bd(2)*w2]);
+      wbd3=tom.Rotation.quatToHomo([0;Bd(3)*w3]);
+      qi(:,i)=qo*exp1*exp2*tom.Rotation.homoToQuat(exp3);
+      qidot(:,i)=qo*exp1*wbd1*exp2*tom.Rotation.homoToQuat(exp3) + qo*exp1*exp2*wbd2*tom.Rotation.homoToQuat(exp3) + qo*exp1*exp2*exp3*tom.Rotation.homoToQuat(wbd3);
     end
     
   otherwise
     error('invalid method');
 end
 
-return
+end
 
 
 function x=Bh(t)
@@ -119,10 +120,10 @@ function x=Bh(t)
   x(1,:)=1-(1-t).^3;
   x(2,:)=3*t.*t-2*tc;
   x(3,:)=tc;
-return
+end
 
 function xd=Bhd(t)
   xd(1,:)=3*(1-t).^2;
   xd(2,:)=6*t.*(1-t);
   xd(3,:)=3*t.*t;
-return
+end

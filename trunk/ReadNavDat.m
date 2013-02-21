@@ -18,7 +18,7 @@ Xd(1,:)=rawdata(5,:);
 Xd(2,:)=rawdata(6,:);
 Xd(3,:)=rawdata(7,:);
 
-Q=Euler2Quat((rawdata(8:10,:)-[90;0;0]*ones(1,n))*(pi/180));
+Q=tom.Rotation.eulerToQuat((rawdata(8:10,:)-[90;0;0]*ones(1,n))*(pi/180));
 
 dT=gradient(T);
 
@@ -28,4 +28,4 @@ Qd(2,:)=gradient(Q(2,:))./dT;
 Qd(3,:)=gradient(Q(3,:))./dT;
 Qd(4,:)=gradient(Q(4,:))./dT;
 
-return
+end

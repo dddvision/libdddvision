@@ -34,7 +34,7 @@ switch type
     sz=[n,m];
     
     cam.q = quat;
-    cam.Rctw = quat2matrix(quat);
+    cam.Rctw = tom.Rotation.quatToMatrix(quat);
     cam.trans = trans;
     cam.size = sz;
     cam.A = A; 

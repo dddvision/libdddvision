@@ -33,7 +33,7 @@ POV=[[0,1, 0]
 
 Xpov=POV*qX;
 Qpov=[qR(1,:);-POV*qR(2:4,:)];
-Epov=Quat2Euler(Qpov)*(180/pi);
+Epov=tom.Rotation.quatToEuler(Qpov)*(180/pi);
 
 %write the files
 for k=1:n

@@ -6,20 +6,12 @@ function M=BodyState2Projective(x,n,rho)
 %
 %OUTPUT:
 %   M = projective transformation matrix
-%
-
-
-
-
-
-
-
 
 %calculate scaling
 k=n/2*rho;
 
 xT=x(5:7);
-R=Quat2Matrix(x(1:4));
+R=tom.Rotation.quatToMatrix(x(1:4));
 
 Minv=[[k*R(1,3),k*R(2,3),-k*R(:,3)'*xT]
       [k*R(1,2),k*R(2,2),-k*R(:,2)'*xT]

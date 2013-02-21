@@ -66,11 +66,11 @@ function [T, X, Q, Qd, n] = ReadKeys(filename)
   er(1, :) = K(10, :);
 
   % convert from pan-tilt-spin (reverse order) to scalar-vector quaternions
-  Q = Euler2Quat([spin; tilt; pan]);
+  Q = tom.Rotation.eulerToQuat([spin; tilt; pan]);
 
   Qd = zeros(4, n);
   for i = 1:n
-    Qd(:, i) = 0.5*Quat2Homo(Q(:, i))*[0; er(:, 1)]; % qd = 1/2*q*omega
+    Qd(:, i) = 0.5*tom.Rotation.quatToHomo(Q(:, i))*[0; er(:, 1)]; % qd = 1/2*q*omega
   end
 
 end
