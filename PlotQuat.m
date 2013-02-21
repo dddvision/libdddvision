@@ -15,7 +15,7 @@ p(:,3)=[0;-1;0]; %axis 2.b
 p(:,4)=[0;0;-0.5]; %axis 3
 
 %rotate the points
-M=Quat2Matrix(q);
+M=tom.Rotation.quatToMatrix(q);
 pp=M*p;
 
 X=pp(1,:);
@@ -63,4 +63,4 @@ zlabel('axis 3');
 set(gcf,'Color',[0,0,0])
 set(gca,'Color',[0.1,0.1,0.1])
 
-return
+end

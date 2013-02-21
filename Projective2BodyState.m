@@ -6,14 +6,6 @@ function x=Projective2BodyState(M,n,rho)
 %
 %OUTPUT:
 %   x = body state, [quaternion;position]
-%
-
-
-
-
-
-
-
 
 %calculate scaling
 k=n/2*rho;
@@ -40,7 +32,7 @@ for sn=[-1,1]
   R=[R1,R2,R3]';
 
   %body orientation in quaternion form
-  x(1:4)=Matrix2Quat(R);
+  x(1:4)=tom.Rotation.matrixToQuat(R);
   
   %body position
   x(5:7)=R*[q1;q1/k*Minv(8);q1/k*Minv(7)];

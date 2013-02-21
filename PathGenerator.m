@@ -6,14 +6,6 @@ function Qout=PathGenerator(To,Tf,method,arg)
 % method = 'Zeros','EulerTrans','ReadKeys','ReadNavDat'
 % arg = parameters required by the method
 % Qout = symbolic expressions for rotation and translation (7-by-1)
-%
-
-
-
-
-
-
-
 
 switch method
 
@@ -28,7 +20,7 @@ case 'EulerTrans'
   q6=sym(arg{5});
   q7=sym(arg{6});
 
-  quat=Euler2Quat([a;b;c]);
+  quat=tom.Rotation.eulerToQuat([a;b;c]);
   Qout=[quat(1);quat(2);quat(3);quat(4);q5;q6;q7];
 
 case 'ReadKeys' %requires arg={filename,RSP}
@@ -84,7 +76,7 @@ otherwise
 
 end
 
-return
+end
 
 
 function [Qt,Xt]=PathGenerator_Fourier(Qi,Xi,RSP,N)
@@ -92,7 +84,7 @@ function [Qt,Xt]=PathGenerator_Fourier(Qi,Xi,RSP,N)
   PRECISION=5;
 
   %convert to Euler angles
-  Ei=unwrap(Quat2Euler(Qi)')';
+  Ei=unwrap(tom.Rotation.quatToEuler(Qi)')';
 
   %fourier transform
   EXi=[Ei;Xi];
@@ -139,7 +131,7 @@ function [Qt,Xt]=PathGenerator_Fourier(Qi,Xi,RSP,N)
   end
 
   %convert output to quaternions
-  Qt=vpa(Euler2Quat(EX(1:3,1)),PRECISION);
+  Qt=vpa(tom.Rotation.eulerToQuat(EX(1:3,1)),PRECISION);
   Xt=EX(4:6,1);
 
-return
+end

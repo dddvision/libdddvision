@@ -1,15 +1,8 @@
 function [dtheta_body,fav_body]=BodyInertia(Q,Qdav,Qddav,GeoOmega,GeoAccel,g,T)
 
-
-
-
-
-
-
-
 %note: Q contains one time step before Qdav and Qddav begin
 QR=Q(1:4,:);
-QRinv=QuatConj(Q(1:4,:));
+QRinv=tom.Rotation.quatInv(Q(1:4,:));
 QTdd=Qddav(5:7,:);
 DT=ones(3,1)*diff(T);
 
@@ -18,16 +11,16 @@ fav_body=zeros(3,N);
 dtheta_body=zeros(3,N);
 
 f=QTdd+GeoAccel-g;
-GeoQuat=AxisAngle2Quat(GeoOmega.*DT);
+GeoQuat=tom.Rotation.axisToQuat(GeoOmega.*DT);
 for i=1:N
   %reference orientation
-  Rwb=Quat2Matrix(QRinv(:,i));
+  Rwb=tom.Rotation.quatToMatrix(QRinv(:,i));
   
   %delta angle
   Qa=QR(:,i);
-  Qb=Quat2Homo(GeoQuat(:,i))*QR(:,i+1);
-  dQ=Quat2Homo(QuatConj(Qa))*Qb;
-  dtheta_body(:,i)=Quat2Euler(dQ);
+  Qb=tom.Rotation.quatToHomo(GeoQuat(:,i))*QR(:,i+1);
+  dQ=tom.Rotation.quatToHomo(tom.Rotation.quatInv(Qa))*Qb;
+  dtheta_body(:,i)=tom.Rotation.quatToEuler(dQ);
   
   %specific force
   fav_body(:,i)=Rwb*f(:,i);
@@ -36,4 +29,4 @@ end
 %IMU definition is like omega
 dtheta_body=dtheta_body./DT;
 
-return
+end
