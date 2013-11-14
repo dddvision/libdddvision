@@ -1,28 +1,23 @@
 % Computes large layer of Gaussian pyramid
-%
-% The implied coordinate system originates at
-%   the center of the image
-% Special thanks to Sohaib Khan
-%
-% Insert zeros in every alternate row position and conv with mask
-% insert zeros in every alternate clmn position in result and conv with mask'
-function largeIm = Expand(im)
+function large = Expand(small)
 
-mask = 2*[0,fspecial('gaussian',[1,6],1)];
+% prepare convolution mask
+mask = [0.0217, 0.2283, 0.5000, 0.2283, 0.0217];
 
-% insert zeros in every alternate position in each row
-rowZeros = [im; zeros(size(im))];
-rowZeros = reshape(rowZeros, size(im,1), 2*size(im,2));
+% get small image size
+[M, N] = size(small);
 
-%conv with horiz mask
-newIm = conv2(rowZeros, mask,'same');
+% duplicate rows and convolve with horizontal mask
+small = repmat(small, [2, 1]);
+medium = reshape(small(:), M, 2*N);
+medium = conv2(medium, mask, 'same');
+medium = medium';
 
-% insert zeros in every alternate position in each col
-colZeros = newIm';
-colZeros = [colZeros; zeros(size(colZeros))];
-colZeros = reshape(colZeros, size(colZeros,1)/2, 2*size(colZeros,2));
-colZeros = colZeros';
-
-largeIm=conv2(colZeros, mask','same');
+% duplicate columns and convolve with vertical mask
+medium = repmat(medium, [2, 1]);
+large = reshape(medium(:), 2*N, 2*M);
+large = conv2(large, mask,'same');
+large = large';
 
 end
+
