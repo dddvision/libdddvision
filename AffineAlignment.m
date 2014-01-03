@@ -17,7 +17,7 @@
 function P = AffineAlignment(imageA, imageB, level, itr, P, mask)
 
   % debug parameter
-  show = false;
+  show = true;
 
   % initialization
   pyramidA = cell(level, 1);
