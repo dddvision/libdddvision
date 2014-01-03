@@ -8,9 +8,7 @@
 %
 % TODO: update pos(1:2) if figure/axis units are normalized
 function cdata = fbuffer(hfig)
-
   pos = get(hfig, 'Position');
-
   if(strcmp(get(hfig, 'Renderer'), 'opengl'))
     sppi = get(0, 'ScreenPixelsPerInch');
     ppos = get(hfig, 'PaperPosition');
@@ -24,7 +22,6 @@ function cdata = fbuffer(hfig)
     cdata = hardcopy(hfig, '-dzbuffer', '-r0');
     set(hfig, 'PaperPositionMode', mode);
   end
-
   if(numel(cdata)>(pos(3)*pos(4)*3))
     cdata = cdata(1:pos(4), 1:pos(3), :);
   end

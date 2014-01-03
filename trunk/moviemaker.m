@@ -2,85 +2,89 @@ close all;
 clear classes;
 drawnow;
 
-%filename settings
-INPUT_DIRECTORY='/projects/InertiaPlusImages/scenes/Desert/';
-INPUT_STUB='desert';
-INPUT_EXT='.bmp';
-OUTPUT_DIRECTORY='/projects/InertiaPlusImages/scenes/Desert/';
-OUTPUT_STUB='test';
-NUMBER_FORMAT='%04d';
-FRAME_BEGIN=0;
-FRAME_INC=1;
-FRAME_END=1680; % can be Inf
-SHOW_IMAGES=false;
+% parameters
+inputDirectory = '/home/ddiel/1435-1/Simulator/';
+outputDirectory = '/home/ddiel/1435-1/Simulator/';
+inputStub = eval(['{''', strrep(strrep(strrep(num2str((0.5:0.5:20.5).*mod(0:40, 2), '%05d. '), '  ', ' '), '  ', ' '), ' ', ''','''), '''};']);
+inputExtension = '.png';
+outputStub = 'video';
+numberFormat = '%05d';
+frame = 0:29;
+showImages = true;
+compression = 'none'; %('FFDS'),'Indeo5','Cinepak','MPG4' (size must be N*16)
+fps = 15; %(12.595 for Lumenera) ks per second
+fpsKey = 1; %(1/8) is typical for MPG4
+quality = 100; %(100), does not affect Cinepak
 
-%Codec playback settings
-COMPRESSION='none'; %('FFDS'),'Indeo5','Cinepak','MPG4' (size must be N*16)
-FPS=15; %(12.595 for Lumenera) frames per second
-KEY_FPS=1; %(1/8) is typical for MPG4
-QUALITY=100; %(100), does not affect Cinepak
-
-%OPEN THE MOVIE FILE
-mov=avifile([fullfile(OUTPUT_DIRECTORY,OUTPUT_STUB),'.avi'],'Fps',FPS,'Compression',COMPRESSION,'Quality',QUALITY,'KeyFramePerSec',KEY_FPS,'VideoName',OUTPUT_STUB);
+% open the movie file
+mov = avifile([fullfile(outputDirectory, outputStub),'.avi'], 'Fps', fps, 'Compression', compression, 'Quality', quality, 'KeyFramePerSec', fpsKey, 'VideoName', outputStub);
 
 try
-  for frame = FRAME_BEGIN:FRAME_INC:FRAME_END
-    fprintf('\n%d',frame);
-    
-    [X,MAP]=imread(fullfile(INPUT_DIRECTORY,[INPUT_STUB,num2str(frame,NUMBER_FORMAT),INPUT_EXT])); 
-    %[Y,YMAP]=imread(fullfile('/home/ddiel/flight47/Combined',[num2str(frame,NUMBER_FORMAT),INPUT_STUB,INPUT_EXT])); 
-    %X=uint8(ReadBinPGM([fullfile(INPUT_DIRECTORY,INPUT_STUB),num2str(frame,NUMBER_FORMAT),INPUT_EXT]));
-    %MAP=gray(256);
-    
-    F=im2frame(X,MAP);
-    %G=im2frame(Y,YMAP);
-    %F.cdata=[F.cdata,uint8(128*ones(size(F.cdata,1),8,3)),G.cdata]; %hack to join two frames
+  for s = 1:numel(inputStub)
+    for k = 1:numel(frame)
+      fprintf('\n%d', k);
 
-    % rotate
-    %F.cdata=cat(3,rot90(F.cdata(:,:,1)),rot90(F.cdata(:,:,2)),rot90(F.cdata(:,:,3)));
+      if(strcmp(inputStub{s}, '00000.'))
+        X = zeros(512, 640, 3);
+      else
+        X = imread(fullfile(inputDirectory, [inputStub{s}, num2str(frame(k), numberFormat), inputExtension]));
+        X = repmat(double(X)/255.0, [1, 1, 3]);
+      end
+%       [Y, YMAP] = imread(fullfile('/home/ddiel/flight47/Combined', [num2str(k, numberFormat), inputStub, inputExtension])); 
+%       X = uint8(ReadBinPGM([fullfile(inputDirectory, inputStub), num2str(k, numberFormat), inputExtension]));
 
-%     % UserDemo
-%     [X,MAP]=imread([fullfile(INPUT_DIRECTORY,INPUT_STUB),num2str(frame,NUMBER_FORMAT),'.blips.png']); 
-%     [Y,YMAP]=imread([fullfile(INPUT_DIRECTORY,INPUT_STUB),num2str(frame,NUMBER_FORMAT),'.density.png']); 
-%     F=im2frame(X,MAP);
-%     G=im2frame(Y,YMAP);
-     %F.cdata=cat(2,F.cdata,G.cdata);
-
-    % pad
-%     BLOCK_SIZE=16;
-%     [m,n,p]=size(F.cdata);
-%     mr=(BLOCK_SIZE-mod(m,BLOCK_SIZE))/2;
-%     nr=(BLOCK_SIZE-mod(n,BLOCK_SIZE))/2;
-%     F.cdata=cat(1,zeros(floor(mr),n,p),F.cdata,zeros(ceil(mr),n,p));
-%     F.cdata=cat(2,zeros(m+2*mr,floor(nr),p),F.cdata,zeros(m+2*mr,ceil(nr),p));
-  
-    % resize
-%   OUTPUT_WIDTH=896; 
-%   OUTPUT_HEIGHT=448; % must be multiple of 16 for MPG4
-%     [m,n,p]=size(F.cdata);
-%     mratio=OUTPUT_HEIGHT/m;
-%     nratio=OUTPUT_WIDTH/n;
-%     if( (mratio~=1) || (nratio~=1) )
-%       scale=min(mratio,nratio);
-%       F.cdata=imresize(F.cdata,scale,'bicubic');
-%       [m,n,p]=size(F.cdata);
-%       mpad=(OUTPUT_HEIGHT-m)/2;
-%       npad=(OUTPUT_WIDTH-n)/2;
-%       if( mpad )
-%         F.cdata=cat(1,zeros(floor(mpad),OUTPUT_WIDTH,p),F.cdata,zeros(ceil(mpad),OUTPUT_WIDTH,p));
-%       elseif( npad )
-%         F.cdata=cat(2,zeros(OUTPUT_HEIGHT,floor(npad),p),F.cdata,zeros(OUTPUT_HEIGHT,ceil(npad),p));    
+      F = im2frame(X, []);
+%       G = im2frame(Y, YMAP);
+%       F.cdata = [F.cdata, uint8(128*ones(size(F.cdata, 1), 8, 3)), G.cdata]; %hack to join two ks
+%       
+%       % rotate
+%       F.cdata = cat(3, rot90(F.cdata(:, :, 1)), rot90(F.cdata(:, :, 2)), rot90(F.cdata(:, :, 3)));
+%       
+%       % UserDemo
+%       [X, MAP] = imread([fullfile(inputDirectory, inputStub), num2str(k, numberFormat), '.blips.png']);
+%       [Y, YMAP] = imread([fullfile(inputDirectory, inputStub), num2str(k, numberFormat), '.density.png']);
+%       F = im2frame(X, MAP);
+%       G = im2frame(Y, YMAP);
+%       F.cdata = cat(2, F.cdata, G.cdata);
+%       
+%       % pad
+%       BLOCK_SIZE = 16;
+%       [m, n, p] = size(F.cdata);
+%       mr = (BLOCK_SIZE-mod(m, BLOCK_SIZE))/2;
+%       nr = (BLOCK_SIZE-mod(n, BLOCK_SIZE))/2;
+%       F.cdata = cat(1, zeros(floor(mr), n, p), F.cdata, zeros(ceil(mr), n, p));
+%       F.cdata = cat(2, zeros(m+2*mr, floor(nr), p), F.cdata, zeros(m+2*mr, ceil(nr), p));
+%       
+%       % resize
+%       OUTPUT_WIDTH = 896;
+%       OUTPUT_HEIGHT = 448; % must be multiple of 16 for MPG4
+%       [m, n, p] = size(F.cdata);
+%       mratio = OUTPUT_HEIGHT/m;
+%       nratio = OUTPUT_WIDTH/n;
+%       if((mratio~=1)||(nratio~=1))
+%         scale = min(mratio, nratio);
+%         F.cdata = imresize(F.cdata, scale, 'bicubic');
+%         [m, n, p] = size(F.cdata);
+%         mpad = (OUTPUT_HEIGHT-m)/2;
+%         npad = (OUTPUT_WIDTH-n)/2;
+%         if(mpad)
+%           F.cdata = cat(1, zeros(floor(mpad), OUTPUT_WIDTH, p), F.cdata, zeros(ceil(mpad), OUTPUT_WIDTH, p));
+%         elseif(npad)
+%           F.cdata = cat(2, zeros(OUTPUT_HEIGHT, floor(npad), p), F.cdata, zeros(OUTPUT_HEIGHT, ceil(npad), p));
+%         end
 %       end
-%     end
 
-    mov=addframe(mov,F);
+      mov = addframe(mov, F);
 
-    if SHOW_IMAGES
-      figure(1),cla,imshow(F.cdata);
+      if(showImages)
+        figure(1);
+        cla;
+        imshow(F.cdata);
+      end
     end
   end
 catch err
-  fprintf('\n%s',err.message);
+  fprintf('\n%s', err.message);
   fprintf('\nDone');
 end
 mov = close(mov);

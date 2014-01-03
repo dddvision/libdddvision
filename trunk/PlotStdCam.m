@@ -1,3 +1,5 @@
+% x   = position and orientation
+% FOV = field of view in the vertical direction (!)
 function PlotStdCam(x,FOV)
 
 xR=x(1:4);
