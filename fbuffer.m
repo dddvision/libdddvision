@@ -18,14 +18,15 @@ function cData = fbuffer(hFigure)
   set(hFigure, 'InvertHardcopy', 'off');
   
   if(strcmp(get(hFigure, 'Renderer'), 'opengl'))
-    sPPI = get(0, 'ScreenPixelsPerInch');
-    set(hFigure, 'PaperPosition', [0.0, 0.0, position(3)/sPPI, position(4)/sPPI]); 
-    cData = hardcopy(hFigure, '-dopengl', '-r0');
+    driver = '-dopengl';
   else
-    sPPI = get(0, 'ScreenPixelsPerInch');
-    set(hFigure, 'PaperPosition', [0.0, 0.0, position(3)/sPPI, position(4)/sPPI]); 
-    cData = hardcopy(hFigure, '-dzbuffer', '-r0');
+    driver = '-dzbuffer';
   end
+  
+  sPPI = get(0, 'ScreenPixelsPerInch');
+  set(hFigure, 'PaperPosition', [0.0, 0.0, position(3), position(4)]/sPPI); 
+  cData = hardcopy(hFigure, driver, '-r0');
+
   if(numel(cData)>(position(3)*position(4)*3))
     cData = cData(1:position(4), 1:position(3), :);
   end
