@@ -3,8 +3,6 @@
 % @param[in] hFigure  figure handle
 % @param[in] fileName name of image file to write with extension
 function fPublish(hFigure, fileName)
-  epsFileName = [fileName, '.eps'];
-
   units = get(hFigure, 'Units');
   set(hFigure, 'Units', 'pixels');
   position = get(hFigure, 'Position');
@@ -27,7 +25,20 @@ function fPublish(hFigure, fileName)
   
   sPPI = get(0, 'ScreenPixelsPerInch');
   set(hFigure, 'PaperPosition', [0.0, 0.0, position(3), position(4)]/sPPI);
-  print(hFigure, '-depsc', renderer, '-r300', epsFileName);
+
+  [filePath, fileStub, fileExt] = fileparts(fileName);
+  if(strcmpi(fileExt, '.png'))
+    print(hFigure, '-dpng', renderer, '-r300', fileName);
+  else
+    pngFileName = [fileName, '.png'];
+    print(hFigure, '-dpng', renderer, '-r300', pngFileName);
+    cData = imread(pngFileName);
+    fprintf('%s\n', result);
+    if(status==0)
+      delete(pngFileName);
+    end
+    imwrite(cData, fileName);
+  end
 
   set(hFigure, 'InvertHardcopy', invertHardcopy);
   set(hFigure, 'PaperUnits', paperUnits);
@@ -35,10 +46,4 @@ function fPublish(hFigure, fileName)
   set(hFigure, 'PaperPositionMode', paperPositionMode);
   set(hFigure, 'Units', units);
   set(hFigure, 'Position', position);
-  
-  [status, result] = system(['convert -density 300 ', epsFileName, ' ', fileName]);
-  fprintf('%s\n', result);
-  if(status==0)
-    delete(epsFileName);
-  end
 end
