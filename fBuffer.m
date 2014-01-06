@@ -2,7 +2,7 @@
 % 
 % @param[in]  hFigure figure handle
 % @param[out] cData   truecolor image data
-function cData = fbuffer(hFigure)
+function cData = fBuffer(hFigure)
   units = get(hFigure, 'Units');
   set(hFigure, 'Units', 'pixels');
   position = get(hFigure, 'Position');
