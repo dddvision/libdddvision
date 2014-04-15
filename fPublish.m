@@ -17,7 +17,7 @@ function fPublish(hFigure, fileName)
   invertHardcopy = get(hFigure, 'InvertHardcopy');
   set(hFigure, 'InvertHardcopy', 'off');
   
-  if(strcmp(get(hFigure, 'Renderer'), 'opengl'))
+  if(strcmpi(get(hFigure, 'Renderer'), 'opengl'))
     renderer = '-opengl';
   else
     renderer = '-zbuffer';
