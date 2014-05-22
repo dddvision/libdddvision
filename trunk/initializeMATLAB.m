@@ -17,11 +17,10 @@ else
 end
 
 % close figures and clear everything except breakpoints
+close('all');
 breakpoints = dbstatus('-completenames');
 save('breakpoints.mat', 'breakpoints');
-close('all');
-clear('all');
-clear('classes');
+evalin('base', 'clear(''classes'')');
 load('breakpoints.mat');
 delete('breakpoints.mat');
 dbstop(breakpoints);
