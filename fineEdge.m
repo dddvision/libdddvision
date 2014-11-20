@@ -1,4 +1,4 @@
-% Scales the input image dimensions by 2 and returns smoothed gradients.
+% Scales the input image dimensions by 2 and returns scaled smoothed gradients.
 %
 % @param[in]  x  real valued image in the range [0, 1]
 % @param[out] gi gradient in the down direction
@@ -7,18 +7,23 @@
 % @note
 % Smoothing works in conjunction with a scaling kenel to estimate gradients at a finer scale.
 % The image border is extended in order to pre-adjust for the loss of border in the gradient operation.
-function [gi, gj] = fineEdge(x)
+function [gi, gj, gm, theta] = fineEdge(x)
 if(nargin==0)
   close('all');
-  clear('classes');  
+  clear('classes');
   x = imread('peppers.png');
   x = double(rgb2gray(x))/255.0;
-  %x = [0, 0, 0; 0, 1, 0; 0, 0, 0];
-  figure,imshow(x);
-  [gi, gj] = fineEdge(x);
-  gm = sqrt(gi.*gi+gj.*gj);
-  rgb = hsv2rgb(0.5+atan2(gj, gi)/(2*pi), 0.5*ones(size(gj)), gm./max(gm(:)));
-  figure,imshow(rgb);
+  tic; [gi, gj, gm, theta] = fineEdge(x); toc; %#ok unused outputs
+  %tic; [gj, gi] = gradient(x); gm = sqrt(gi.*gi+gj.*gj); theta = atan2(gj, gi); toc; % MATLAB gradient
+  %tic; cEdge = edge(x, 'canny'); toc; % MATLAB edge
+  tic; peak = maxima(gm, theta, 0.1); toc;
+  mCrop = sum(gm, 2)>0.0;
+  nCrop = sum(gm, 1)>0.0;
+  rgb = colorize(gm(mCrop, nCrop), theta(mCrop, nCrop), peak(mCrop, nCrop));
+  figure; imshow(x);
+  %figure; imshow(cEdge);
+  %figure; imshow(peak);
+  figure; imshow(rgb);
   gi = [];
   gj = [];
   return;
@@ -29,12 +34,18 @@ x = smoothWindow(x, [3, 1], 0.5);
 x = imresize(x, 2.0, 'lanczos3');
 x = shrinkByOne(x);
 x = removeBorder(x);
-%x = smoothWindow(x, [1, 3], 0.5);
-%x = smoothWindow(x, [3, 1], 0.5);
 [gd, gc] = robertsCross(x);
-[r, t] = cartesianToPolar(gd, gc);
-t = t+pi/4.0; % rotate angle
-[gi, gj] = polarToCartesian(r, t);
+clear('x');
+[gm, theta] = cartesianToPolar(gd, gc);
+clear('gd');
+clear('gc');
+theta = theta+pi/4.0; % rotate angle
+if(nargout>3)
+  % keep theta in the range [-pi, pi]
+  big = theta>pi;
+  theta(big) = theta(big)-2.0*pi;
+end
+[gi, gj] = polarToCartesian(gm, theta);
 end
 
 function x = addBorder(x)
@@ -45,13 +56,13 @@ function x = removeBorder(x)
 x = x(2:(end-1), 2:(end-1));
 end
 
-function x = shrinkByOne(x)
+% @note result is scaled by a factor of 4
+function y = shrinkByOne(x)
 [M, N] = size(x);
-ma = 1:(M-1);
-mb = 2:M;
-na = 1:(N-1);
-nb = 2:N;
-x = (x(ma, na)+x(ma, nb)+x(mb, na)+x(mb, nb))/4.0;
+y = x(1:(M-1), 1:(N-1));
+y = y+x(1:(M-1), 2:N);
+y = y+x(2:M, 1:(N-1));
+y = y+x(2:M, 2:N);
 end
 
 function x = smoothWindow(x, win, sig)
@@ -59,14 +70,13 @@ kernel = fspecial('gaussian', win, sig);
 x = filter2(kernel, x);
 end
 
+% @note result is scaled by a factor of sqrt(2)
 function [gd, gc] = robertsCross(x)
 [M, N] = size(x);
-ma = 1:(M-1);
-mb = 2:M;
-na = 1:(N-1);
-nb = 2:N;
-gd = (x(mb, nb)-x(ma, na))/sqrt(2);
-gc = (x(ma, nb)-x(mb, na))/sqrt(2);
+gd = x(2:M, 2:N);
+gd = gd-x(1:(M-1), 1:(N-1));
+gc = x(1:(M-1), 2:N);
+gc = gc-x(2:M, 1:(N-1));
 end
 
 function [r, t] = cartesianToPolar(x, y)
@@ -77,4 +87,20 @@ end
 function [x, y] = polarToCartesian(r, t)
 x = r.*cos(t);
 y = r.*sin(t);
+end
+
+function rgb = colorize(gm, theta, peak)
+[M, N] = size(gm);
+index = find(peak);
+rgb = hsv2rgb(0.5+theta(index)/(2*pi), repmat(0.5, size(index)), gm(index)./max(gm(index)));
+ri = rgb(:, 1, 1);
+gi = rgb(:, 1, 2);
+bi = rgb(:, 1, 3);
+r = zeros(M, N);
+g = zeros(M, N);
+b = zeros(M, N);
+r(index) = ri;
+g(index) = gi;
+b(index) = bi;
+rgb = cat(3, r, g, b);
 end
