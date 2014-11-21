@@ -3,10 +3,10 @@
 % @param[in]  gm     gradient magnitude
 % @param[in]  theta  gradient direction counter clockwise from down direction in range [-pi, pi]
 % @param[in]  thresh lower gradient magnitude threshold in the range [0, inf)
-% @param[out] peak   binary image indicating maxima pixels
-function peak = maxima(gm, theta, thresh)
+% @param[out] ridge  binary image indicating maxima along the gradient direction
+function ridge = maxima(gm, theta, thresh)
 [M, N] = size(gm);
-peak = false(M, N);
+ridge = false(M, N);
 
 % exclude border and pixels with gradient magnitude less than thresh
 gmTemp = gm;
@@ -31,5 +31,5 @@ od = offset(direction);
 gmi = gm(index);
 
 % do the test
-peak(index) = (gmi>gm(index-od))&(gmi>gm(index+od));
+ridge(index) = (gmi>gm(index-od))&(gmi>gm(index+od));
 end
