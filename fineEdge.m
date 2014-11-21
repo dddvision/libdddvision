@@ -16,14 +16,16 @@ if(nargin==0)
   tic; [gi, gj, gm, theta] = fineEdge(x); toc; %#ok unused outputs
   %tic; [gj, gi] = gradient(x); gm = sqrt(gi.*gi+gj.*gj); theta = atan2(gj, gi); toc; % MATLAB gradient
   %tic; cEdge = edge(x, 'canny'); toc; % MATLAB edge
-  tic; peak = maxima(gm, theta, 0.1); toc;
+  tic; ridge = maxima(gm, theta, 0.1); toc;
   mCrop = sum(gm, 2)>0.0;
   nCrop = sum(gm, 1)>0.0;
-  rgb = colorize(gm(mCrop, nCrop), theta(mCrop, nCrop), peak(mCrop, nCrop));
+  %mCrop = 1:size(gm, 1);
+  %nCrop = 1:size(gm, 2);
+  rgb = colorize(gm(mCrop, nCrop), theta(mCrop, nCrop), ridge(mCrop, nCrop));
   figure; imshow(x);
   %figure; imshow(cEdge);
-  %figure; imshow(peak);
-  figure; imshow(rgb);
+  %figure; imshow(ridge(mCrop, nCrop));
+  figure; imshow(rgb);   
   gi = [];
   gj = [];
   return;
