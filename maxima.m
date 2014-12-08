@@ -4,7 +4,8 @@
 % @param[in]  theta  gradient direction counter clockwise from down direction in range [-pi, pi]
 % @param[in]  thresh lower gradient magnitude threshold in the range [0, inf)
 % @param[out] ridge  binary image indicating maxima along the gradient direction
-function ridge = maxima(gm, theta, thresh)
+% @param[out] sub    subpixel adjustment to position of ridge
+function [ridge, sub] = maxima(gm, theta, thresh)
 [M, N] = size(gm);
 ridge = false(M, N);
 
@@ -15,21 +16,25 @@ gmTemp(:, 1) = -1.0;
 gmTemp(M, :) = -1.0;
 gmTemp(:, N) = -1.0;
 index = find(gmTemp>=thresh);
-theta = theta(index);
+thetai = theta(index);
 
-% shift theta and reduce to four directional tests
-lowTheta = theta<0.0;
-theta(lowTheta) = theta(lowTheta)+pi;
-lowTheta = theta<(1.0/8.0*pi);
-theta(lowTheta) = theta(lowTheta)+pi;
-theta = theta+(1.0/8.0*pi);
-direction = floor(theta*(4.0/pi-eps));
-
-% prepare variables for one line execution
-offset = [M+1; M; M-1; 1];
+% shift theta and reduce to nine directional tests
+direction = floor(thetai*(4.0/pi)+5.5); % adjust range to [1.5 9.5] then floor
+offset = [-1; -M-1; -M; -M+1; 1; M+1; M; M-1; -1];
 od = offset(direction);
 gmi = gm(index);
 
-% do the test
-ridge(index) = (gmi>gm(index-od))&(gmi>gm(index+od));
+if(nargout<2)
+  % do quick test
+  ridge(index) = (gmi>=gm(index-od))&(gmi>gm(index+od));
+else
+  % optionally output subpixel refinement
+  lower = gmi-gm(index-od);
+  upper = gmi-gm(index+od);
+  ridgei = (lower>=0.0)&(upper>0.0);
+  ridge(index) = ridgei;
+  sub = zeros(M, N);
+  mag = 0.5*sqrt(2)-mod(direction(ridgei), 2)*(0.5*sqrt(2)-0.5);
+  sub(index(ridgei)) = mag.*(lower(ridgei)-upper(ridgei))./(upper(ridgei)+lower(ridgei));
+end
 end
