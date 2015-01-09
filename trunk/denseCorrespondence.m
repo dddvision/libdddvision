@@ -8,8 +8,15 @@
 % @param[in] dsMax maximum absolute value of displacement in scale
 %
 %IDEAS:
-% use tiny 3x3 or 2x2 support
+% use tiny 3x3 support
 % allow small rotation and scale
+% solve precisely over +/-0.5 pixel translation and small rotation
+% use concept of partial support
+% if current state is equally good as perturbed state, then choose current
+% use concept of propigation
+% pre-compute (cubic?) interpolation factors over image b so it can be queried quickly
+% invent descriptor that finds the "corner postion and orientation" given a 3x3
+% derive di, dj, dt, ds from variational theory
 function [di, dj] = denseCorrespondence(a, b, diMax, djMax, dtMax, dsMax)
 if(nargin==0)
   close('all');
