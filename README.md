@@ -1,3 +1,7 @@
+This is a library of MATLAB and C++ functions that may be referred to from other projects. Some of the major focuses relate to computer vision, rotation, camera projections, and navigation.
+
+LICENSE
+
 Copyright (c) 2015, David Diel
 All rights reserved.
 
