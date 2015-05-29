@@ -27,6 +27,11 @@ end
 load('data/RubberWhaleFlow.mat');
 di = diTruth;
 dj = djTruth;
+
+% force image to have odd number of pixels in each dimension
+% solve for motion of center pixel
+% propagate outward and refine
+% need a way to identify unique support
 end
 
 function d = matchMetric(a, b, pi, pj)
