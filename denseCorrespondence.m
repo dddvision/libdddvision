@@ -11,6 +11,13 @@
 %IDEAS:
 % use tiny 3x3 or 2x2 support
 % allow small rotation and scale
+% solve precisely over +/-0.5 pixel translation and small rotation
+% use concept of partial support
+% if current state is equally good as perturbed state, then choose current
+% use concept of propigation
+% pre-compute (cubic?) interpolation factors over image b so it can be queried quickly
+% invent descriptor that finds the "corner postion and orientation" given a 3x3
+% derive di, dj, dt from variational theory
 function [di, dj] = denseCorrespondence(a, b, diMax, djMax, dtMax, dsMax)
 if(nargin==0)
   close('all');
@@ -34,13 +41,38 @@ dj = djTruth;
 % need a way to identify unique support
 end
 
-function d = matchMetric(a, b, pi, pj)
-
+function d = matchMetric(a, b, stride, step, dStride, dStep, dAngle)
+persistent M N sStride sStep
+if(isempty(M))
+  [M, N] = size(a);
+  sStride = [-1, 0, 1; -1, 0, 1; -1, 0, 1];
+  sStep = [-1, -1, -1; 0, 0, 0; 1, 1, 1];
+end
+a = double(a(:, :, 1)); % TODO: use all three colors
+b = double(b(:, :, 1)); % TODO: use all three colors
+ns = sStride;
+ms = sStep;
+as = a(sub2ind([M, N], step+ms(:), stride+ns(:)));
+[ns, ms] = transform(sStride, sStep, dStride, dStep, dAngle);
+bs = interpolate(b, step+ms(:), stride+ns(:));
+d = 0.0;
 end
 
-function rgb = colorize(di, dj, rMax)
-r = sqrt(di.*di+dj.*dj);
+function ys = interpolate(y, ms, ns)
+ys = interp2(y, ns+1, ms+1);
+end
+
+function [xt, yt] = transform(x, y, dx, dy, da)
+c = cos(da);
+s = sin(da);
+xt = x.*c-y.*s+dx;
+yt = x.*s+y.*c+dy;
+end
+
+function rgb = colorize(dStride, dStep, rMax)
+r = sqrt(dStep.*dStep+dStride.*dStride);
 r(r>1e9) = nan;
-theta = atan2(di, -dj);
+theta = atan2(dStep, -dStride);
 rgb = hsv2rgb(0.5+theta./(2.0*pi), r./rMax, ones(size(r)));
 end
+
