@@ -2,6 +2,23 @@ close all;
 clear classes;
 drawnow;
 
+% new method
+% videoName = 'fgDemo.avi';
+% frameRate = 30;
+% quality = 95;
+% vr = VideoWriter(videoName);
+% vr.FrameRate = frameRate;
+% vr.Quality = quality;
+% vr.open();
+% d = dir('scene*');
+% for n = 1:numel(d)
+%   imageName = d(n).name;
+%   fprintf('%s\n', imageName);
+%   img = imread(imageName);
+%   vr.writeVideo(img);
+% end
+% vr.close()
+
 % parameters
 inputDirectory = '/home/ddiel/1435-1/Simulator/';
 outputDirectory = '/home/ddiel/1435-1/Simulator/';
@@ -12,12 +29,12 @@ numberFormat = '%05d';
 frame = 0:29;
 showImages = true;
 compression = 'none'; %('FFDS'),'Indeo5','Cinepak','MPG4' (size must be N*16)
-fps = 15; %(12.595 for Lumenera) ks per second
+frameRate = 15; %(12.595 for Lumenera) ks per second
 fpsKey = 1; %(1/8) is typical for MPG4
 quality = 100; %(100), does not affect Cinepak
 
 % open the movie file
-mov = avifile([fullfile(outputDirectory, outputStub),'.avi'], 'Fps', fps, 'Compression', compression, 'Quality', quality, 'KeyFramePerSec', fpsKey, 'VideoName', outputStub);
+mov = avifile([fullfile(outputDirectory, outputStub),'.avi'], 'Fps', frameRate, 'Compression', compression, 'Quality', quality, 'KeyFramePerSec', fpsKey, 'VideoName', outputStub);
 
 try
   for s = 1:numel(inputStub)
