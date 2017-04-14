@@ -35,11 +35,13 @@ function [fi,fj,ft]=ComputeDerivatives2(y,yref)
     0 -1  1]/2;
 
   fi=filter2(imask,y);
-  fj=filter2(jmask,y);
-
   fi=RemoveBorders(fi,1);
-  fj=RemoveBorders(fj,1);
 
+  if(nargout>=2)
+    fj=filter2(jmask,y);
+    fj=RemoveBorders(fj,1);
+  end
+  
   if nargin==2
     tmask=[
       0  0  0;
