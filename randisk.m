@@ -6,6 +6,7 @@
 % 
 % OUTPUT
 % sample = points within the disk, 2-by-n
+% Public Domain
 function samp=randisk(n,r)
 % sample from a uniform distribution over a disk in polar coordinates
 rsamp=r*sqrt(rand(1,n));

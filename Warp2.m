@@ -4,6 +4,7 @@ function I=Warp2(I,R,T)
 % R is a 2x2 rotation matrix
 % T is a 2x1 translation vector
 % assumes default coordinate system (may be changed later)
+% Copyright 2002 David D. Diel, MIT License
 
 [m,n]=size(I);
 

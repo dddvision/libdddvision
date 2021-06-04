@@ -9,6 +9,7 @@ function [M] = Szeliski(I,Iold,itr,wt)
 % M=[a1;a2;a3;a4;b1;b2;c1;c2];
 % itr is the number of iterations
 % mask is a weight(x,y) image to be applied to the old(x,y) image
+% Copyright 2002 David D. Diel, MIT License
 
 if nargin==4
     [R,T]=Anandan2(I,Iold,3,3,wt);

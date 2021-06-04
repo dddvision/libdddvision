@@ -7,6 +7,7 @@ function []=WriteIMUdat(path,imufile,time,gyro,accel)
 %    time = time stamp vector (1-by-n))
 %    gyro = gyroscope output (3-by-(n-1))
 %   accel = accelerometer output (3-by-(n-1))
+% Copyright 2006 David D. Diel, MIT License
 
 [m,n]=size(time);
 if m~=1

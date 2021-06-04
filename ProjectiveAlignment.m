@@ -15,6 +15,7 @@
 %
 % NOTES
 % The coordinate system origin is at the image center
+% Copyright 2006 David D. Diel, MIT License
 
 function [M, xyCov] = ProjectiveAlignment(new,old,level,itr,M,mask)
 

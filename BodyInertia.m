@@ -1,4 +1,5 @@
 function [dtheta_body,fav_body]=BodyInertia(Q,Qdav,Qddav,GeoOmega,GeoAccel,g,T)
+% Copyright 2006 David D. Diel, MIT License
 
 %note: Q contains one time step before Qdav and Qddav begin
 QR=Q(1:4,:);

@@ -5,6 +5,7 @@
 % @param[in]  thresh lower gradient magnitude threshold in the range [0, inf)
 % @param[out] ridge  binary image indicating maxima along the gradient direction
 % @param[out] sub    subpixel adjustment to position of ridge
+% Copyright 2006 David D. Diel, MIT License
 function [ridge, sub] = maxima(gm, theta, thresh)
 [M, N] = size(gm);
 ridge = false(M, N);

@@ -10,14 +10,7 @@
 // RETURN VALUE
 // 0 segment does not exceed array bounds
 // 1 segment exceeds array bounds
-//
-// Copyright David D. Diel as of the most recent modification date.
-// Permission is hereby granted to the following entities
-// for unlimited use and modification of this document:
-// University of Central Florida
-// Massachusetts Institute of Technology
-// Draper Laboratory
-// Scientific Systems Company
+// Copyright 2006 David D. Diel, MIT License
 
 int DrawLineSegment(int **array, int size0, int size1, double *point0, double *point1)
 {

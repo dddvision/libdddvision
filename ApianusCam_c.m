@@ -1,5 +1,6 @@
 % INPUTS
 % FOV = horizontal field of view in radians, typically 2*pi
+% Copyright 2006 David D. Diel, MIT License
 function [c1,c2,c3,m]=ApianusCam_c(m,n,FOV)
 
 [u2,u1]=meshgrid((1:n)*(2/(n-1))+(n+1)/(1-n),(1:m)*(2/(m-1))+(m+1)/(1-m)); %verified, different from others

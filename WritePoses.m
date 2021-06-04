@@ -14,6 +14,7 @@ function []=WritePose(path,T,Q)
 % [time stamp], <[Tx], [Ty], [Tz]>, <[Rx], [Ry], [Rz]>
 %
 % this function has been tested within narrow range of rotations
+% Copyright 2006 David D. Diel, MIT License
 
 n=length(T);
 

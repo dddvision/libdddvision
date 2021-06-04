@@ -8,6 +8,7 @@
 %
 % RETURN ARGUMENT:
 % handle = handle to the ellipsoid object
+% Copyright 2006 David D. Diel, MIT License
 function handle=PlotEllipsoid(mu,covar,dev,c)
 % assumed level of detail for mesh
 N=20;

@@ -1,4 +1,5 @@
 % Computes large layer of Gaussian pyramid
+% Copyright 2006 David D. Diel, MIT License
 function large = Expand(small)
 
 % prepare convolution mask

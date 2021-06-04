@@ -8,14 +8,7 @@ function OUT=Smooth(I,win,sig)
 %
 % RETURN VALUE
 % OUT = smoothed image
-%
-%Copyright David D. Diel as of the most recent modification date.
-%Permission is hereby granted to the following entities
-%for unlimited use and modification of this document:
-%  University of Central Florida
-%  Massachusetts Institute of Technology
-%  Draper Laboratory
-%  Scientific Systems Company
+% Public Domain
 
 M=fspecial('gaussian',win,sig);
 

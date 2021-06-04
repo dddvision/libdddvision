@@ -1,4 +1,5 @@
 function pyramid=BuildPyramid(y,LEVELS)
+% Copyright 2006 David D. Diel, MIT License
 
   pyramid = cell(LEVELS,1);
 

@@ -7,6 +7,7 @@
 % 
 % OUTPUT
 % r = matrix of random numbers
+% Public Domain
 function r=randb(m,n,b)
   r=(2*b)*rand(m,n)-b;
 end

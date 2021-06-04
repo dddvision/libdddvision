@@ -1,4 +1,5 @@
 % Computes smaller layer of a conservative pyramid
+% Copyright 2002 David D. Diel, MIT License
 function y = Reduce2(x)
   [M, N] = size(x);
   if(mod(M, 2))

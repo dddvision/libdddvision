@@ -1,4 +1,5 @@
 function k = detectPeaks(x, dt)
+% Copyright 2006 David D. Diel, MIT License
   a = exp(-dt/2);
   y = bienvelope(x, a);
   [junk, k] = findpeaks(y); % find(x==y);

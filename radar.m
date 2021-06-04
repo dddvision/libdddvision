@@ -9,8 +9,7 @@
 % CREDITS
 % Goodyear Aerospace
 % MIT Lincoln Laboratory
-% Frost Technical Services
-% Scientific Systems Company
+% Copyright 2008 Frost Technical Services, MIT License
 function f = radar(row)
   f = zeros(256,3);
 

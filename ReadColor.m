@@ -1,4 +1,5 @@
 function [I,RGB]=ReadColor(filename)
+% Copyright 2006 David D. Diel, MIT License
 
 RGB=imread(filename);
 

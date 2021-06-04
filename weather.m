@@ -1,4 +1,5 @@
 % A colormap that looks like weather radar
+% Copyright 2006 David D. Diel, MIT License
 function f = weather(row)
 
 f = [0,0,0;

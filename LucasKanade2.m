@@ -1,4 +1,5 @@
 %finds dense velocity image
+% Copyright 2002 University of Central Florida, MIT License
 function [u,v]=LucasKanade2(fx,fy,ft,win)
 xx=colfilt(fx.*fx,win,'sliding',@sum);
 yy=colfilt(fy.*fy,win,'sliding',@sum);

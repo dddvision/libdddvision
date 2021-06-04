@@ -1,11 +1,6 @@
 function [minVal, maxVal, theta] = Eig2(xx, yy, xy)
+% Public Domain
 if(nargin==1)
-%   [fi, fj] = fineEdge(imresize(xx, 0.5));
-%   fii = fineEdge(imresize(fi, 0.5));
-%   [fji, fjj] = fineEdge(imresize(fj, 0.5));
-%   [fi, fj] = ComputeDerivatives2(xx);
-%   fii = ComputeDerivatives2(fi);
-%   [fji, fjj] = ComputeDerivatives2(fj);
   [fi, fj] = gradient(xx);
   fii = gradient(fi);
   [fji, fjj] = gradient(fj);

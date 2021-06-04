@@ -1,4 +1,5 @@
 % Get SVN revision number.
+% Copyright 2006 David D. Diel, MIT License
 function rev = getSVNRevision(fileName)
 persistent svnapp
 if(nargin==0)

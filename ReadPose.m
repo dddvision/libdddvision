@@ -1,6 +1,7 @@
 function [q,t]=ReadPose(filename)
 %reads pose in POV-Ray left-handed Euler-angle format
 %transform to quaternions
+% Copyright 2006 David D. Diel, MIT License
 
 [t,qT(2,1),qT(3,1),qT(1,1),LH(1),LH(2),LH(3)]=textread(filename,'%f,<%f,%f,%f>,<%f,%f,%f>');
 

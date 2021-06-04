@@ -13,14 +13,7 @@ function [Gout,Aout]=IMUSim(dtheta,fav,Ts,IMU,RANDOM_SEED)
 %   Gout = noisy gyro output signal (rad/sec)
 %   Aout = noisy accelerometer output signal (meters/sec^2)
 %
-
-
-
-
-
-
-
-
+% Copyright 2006 David D. Diel, MIT License
 if RANDOM_SEED
   randn('seed',RANDOM_SEED);
 end

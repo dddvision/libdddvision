@@ -1,5 +1,6 @@
 function [u1,u2]=Fisheye_u(c1,c2,c3,FOV)
 %FOV currently unused
+% Copyright 2006 David D. Diel, MIT License
 
 ep=1E-9;
 

@@ -4,6 +4,7 @@ bilinear array interpolation at sparse points Xi,Yi (double)
 assuming matlab index 1,2,...N
 usage: Zi=MEXinterp2v(Z,Xi,Yi)
 */
+// Copyright 2006 David D. Diel, MIT License
 
 
 #include "mex.h"

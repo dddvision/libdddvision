@@ -4,6 +4,7 @@
 %
 % If xx,yy,xy are sums of local image gradients,
 % then MinEigvl() detects corners.
+% Public Domain
 function val=MinEigvl(xx,yy,xy)
 dif=xx-yy;
 val=(xx+yy-sqrt(dif.*dif+4*xy.*xy))/2;

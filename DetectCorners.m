@@ -1,4 +1,5 @@
 function kappa=DetectCorners(gi,gj,halfwin,method)
+% Copyright 2006 David D. Diel, MIT License
 
 win=(2*halfwin+1)*[1,1];
 

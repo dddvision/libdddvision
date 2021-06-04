@@ -5,6 +5,7 @@
   assuming matlab index 1,2,...N
   usage: Zi=MEXinterp2vex(Z,Xi,Yi)
 */
+// Copyright 2006 David D. Diel, MIT License
 
 
 #include "mex.h"

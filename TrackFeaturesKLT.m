@@ -4,6 +4,7 @@ function [ibe,jbe,Pout]=TrackFeaturesKLT(ia,ja,Pin,y,halfwin,RESIDUE_THRESH)
 % Pin = pyramid structure (created by BuildPyramid()
 % y = image in range [0,1]
 % 
+% Copyright 2006 David D. Diel, MIT License
 
 LEVELS=length(Pin);
 Pout=BuildPyramid(y,LEVELS);

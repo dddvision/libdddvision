@@ -1,8 +1,6 @@
 function WriteBinPGM(im, fileName)
 %WRITEPGM 	writes a grayscale PGM file [0,255]
-
-% sohaib khan\
-% 14th July 1999
+% Copyright 1999 Sohaib Kahn, MIT License
 
 fid = fopen(fileName, 'w');
 if fid < 3

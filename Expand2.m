@@ -1,4 +1,5 @@
 % Computes smaller layer of a conservative pyramid.
+% Copyright 2006 David D. Diel, MIT License
 function y = Expand2(x)
 [M, N, P] = size(x);
 if(P==1)

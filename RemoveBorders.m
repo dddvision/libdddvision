@@ -2,6 +2,7 @@
 %
 % w = width of border
 % v = value to put in border region (default=0)
+% Public Domain
 
 function y = RemoveBorders(y,w,v)
 

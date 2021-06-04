@@ -7,9 +7,7 @@ function I=Warp3(I,M,pad,scale)
 %
 % scale=output scaling factor
 % assumes default coordinate system (may be changed later)
-%
-%Copyright David D. Diel Dec. 3, 2001
-%all rights reserved
+% Copyright 2002 David D. Diel, MIT License
 
 [m,n]=size(I);
 

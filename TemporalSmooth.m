@@ -1,6 +1,7 @@
 function I=TemporalSmooth(I0,I1,I2,I3,I4)
 % TemporalSmooth() performs gaussian smooth over 2, 3, or 5 images
 % The number of images determines the sigma of the gaussian
+% Copyright 2002 David D. Diel, MIT License
 
 switch nargin
     

@@ -4,15 +4,7 @@
 % major = largest ellipsoidal radius
 % minor = smallest ellipsoidal radius
 % lambda = geocentric latitude (1-by-n)
-% 
-
-
-
-
-
-
-
-
+% Public Domain
 function radius=EllipticalRadius(major,minor,lambda)
 
 A=major*sin(lambda);
@@ -20,4 +12,4 @@ B=minor*cos(lambda);
 
 radius=(major*minor)./sqrt(A.*A+B.*B);
 
-return
+end

@@ -4,6 +4,7 @@ function xidot=TransInterp_ODE(ti,xi,junk,T,X,tau)
 % system model
 % xdd = -2*zeta*wn*xd -wn^2*(x-xD) 
 % assume critical damping 
+% Copyright 2006 David D. Diel, MIT License
 
 x=xi(1);
 xd=xi(2);

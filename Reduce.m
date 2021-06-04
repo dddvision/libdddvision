@@ -3,6 +3,7 @@
 % The implied coordinate system originates at
 %   the center of the image
 % Special thanks to Sohaib Khan
+% Copyright 2002 University of Central Florida, MIT License
 
 function yout = Reduce(yin)
 

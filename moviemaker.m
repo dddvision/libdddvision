@@ -1,4 +1,5 @@
 close all;
+% Copyright 2006 David D. Diel, MIT License
 clear classes;
 drawnow;
 

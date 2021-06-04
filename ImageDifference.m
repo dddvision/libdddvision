@@ -4,6 +4,7 @@
 %   y1 = array (m-by-n)
 %   y2 = array (m-by-n_
 %   gt = finite difference (m-by-n)
+% Copyright 2002 University of Central Florida, MIT License
 function gt=ImageDifference(y1,y2)
 
 if (size(y1,3)~=1)|(size(y2,3)~=1)

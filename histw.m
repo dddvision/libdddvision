@@ -8,6 +8,7 @@
 % OUTPUTS
 % h = weighted histogram values
 % bin = data-to-bin index
+% Public Domain
 function [h,bin]=histw(x,w,edge)
 [cnt,bin]=histc(x,edge);
 N=numel(edge);

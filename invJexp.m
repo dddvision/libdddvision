@@ -3,6 +3,7 @@
 % q = orientation in quaternion form (4-by-1)
 % J = Jacobian (3-by-4)
 % opt = (obsolete) interpret output argument as (1) axis-angle or (2) axis-halfangle
+% Copyright 2006 David D. Diel, MIT License
 function J = invJexp(q, opt)
   q1 = q(1);
   q2 = q(2);

@@ -1,4 +1,5 @@
 function [im]=ReadBinPGM(fileName)
+% Copyright 2002 University of Central Florida, MIT License
 
 fid = fopen(fileName, 'r');
 if (fid < 0)

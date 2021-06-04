@@ -6,6 +6,7 @@ function M=BodyState2Projective(x,n,rho)
 %
 %OUTPUT:
 %   M = projective transformation matrix
+% Copyright 2006 David D. Diel, MIT License
 
 %calculate scaling
 k=n/2*rho;

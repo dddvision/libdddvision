@@ -1,11 +1,5 @@
 function [Q,Qd,Qdd]=PathSampler(Qt,ti)
-
-
-
-
-
-
-
+% Copyright 2006 David D. Diel, MIT License
 
 m=size(Qt,1);
 n=size(ti,2);

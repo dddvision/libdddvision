@@ -1,4 +1,5 @@
 function handle=PlotBody(x,SCALE)
+% Copyright 2006 David D. Diel, MIT License
 
 p(:,1)=[4;0;0]; %axis 1
 p(:,2)=[0;1;0]; %axis 2.a

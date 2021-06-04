@@ -14,6 +14,7 @@
 %        [a3, a4, b2]
 %        [ 0,  0,  1]];
 %   XB = P*XA;
+% Copyright 2006 David D. Diel, MIT License
 function P = AffineAlignment(imageA, imageB, level, itr, P, mask)
 
   % debug parameter

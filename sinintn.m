@@ -1,4 +1,5 @@
 % Numerical approximation of sine integral function.
+% Public Domain
 function y = sinintn(x)
 f = @(t)(sin(t)./max(t, eps));
 y = zeros(size(x));

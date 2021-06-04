@@ -1,4 +1,5 @@
-function WriteBinPPM(im, fileName);
+function WriteBinPPM(im, fileName)
+% Copyright 1999 Sohaib Kahn, MIT License
 
 fid = fopen(fileName, 'w');
 if fid<0

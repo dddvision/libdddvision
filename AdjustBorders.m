@@ -4,6 +4,7 @@
 % crop = border pixels to remove around the image (can be negative)
 % pad = padding pixels to add around the image
 % value = value to put in the pad region (default=0)
+% Copyright 2002 University of Central Florida, MIT License
 function y = AdjustBorders(y,crop,pad,value)
 
 if nargin<4

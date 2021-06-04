@@ -1,4 +1,5 @@
 % Generate a poisson random variable
+% Public Domain
 function r=poissrnd(m,n,lambda)
 % Knuth method
 L=exp(-lambda);

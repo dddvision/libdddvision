@@ -6,6 +6,7 @@
 % RETURN ARGUMENTS
 % lam1=smallest eigenvalue
 % lam2=largest eigenvalue
+% Public Domain
 function [lam1,lam2]=Eig2x2(xx,yy,xy)
 
 dif=xx-yy;

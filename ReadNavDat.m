@@ -1,5 +1,6 @@
 function [T,X,Xd,Q,Qd,n]=ReadNavDat(datafile)
 %tested for intuitive correctness, but not for numerical correctness
+% Copyright 2006 David D. Diel, MIT License
 
 rawdata=dlmread(datafile,' ');
 rawdata=rawdata(:,1:10)';

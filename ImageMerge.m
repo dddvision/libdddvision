@@ -1,4 +1,5 @@
 function C = ImageMerge(A, B)
+% Copyright 2006 David D. Diel, MIT License
   [AL, AH] = IMdecomp(A);
   [BL, BH] = IMdecomp(B);
   C = (AL+BH)/2;

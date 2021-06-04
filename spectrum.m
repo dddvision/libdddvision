@@ -1,4 +1,5 @@
 % A colormap that spans from deep blue to white
+% Copyright 2006 David D. Diel, MIT License
 function f = spectrum(row)
 
 f = [0,0,0;

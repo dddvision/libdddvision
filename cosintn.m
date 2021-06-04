@@ -1,4 +1,5 @@
 % Numerical approximation of cosine integral function.
+% Public Domain
 function y = cosintn(x)
 gamma = 0.5772156649015328606;
 f = @(t)((cos(t)-1.0)./max(t, eps));

@@ -1,4 +1,5 @@
 function f = colorwheel(row)
+% Copyright 2002 David D. Diel, MIT License
 
 f = [0,0,1;
 0,0.0151,1;

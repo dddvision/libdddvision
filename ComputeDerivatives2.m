@@ -8,6 +8,7 @@
 %   fi = row gradient (m-by-n)
 %   fj = column gradient (m-by-n)
 %   ft = corresponding array differences (m-by-n)
+% Copyright 2002 University of Central Florida, MIT License
 
 function [fi,fj,ft]=ComputeDerivatives2(y,yref)
 

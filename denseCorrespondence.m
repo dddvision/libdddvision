@@ -18,6 +18,7 @@
 % pre-compute (cubic?) interpolation factors over image b so it can be queried quickly
 % invent descriptor that finds the "corner postion and orientation" given a 3x3
 % derive di, dj, dt from variational theory
+% Copyright 2006 David D. Diel, MIT License
 function [di, dj] = denseCorrespondence(a, b, diMax, djMax, dtMax, dsMax)
 if(nargin==0)
   close('all');

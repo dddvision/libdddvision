@@ -1,5 +1,6 @@
 % Similar to atan2, but also places the result as close to the center of 
 % the provided angular bounds as possible through rotations of +/- 2*pi
+% Public Domain
 function a=atan3(num,den,amin,amax)
 acen=(amin+amax)/2;
 a=atan2(num,den);

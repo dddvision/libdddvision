@@ -1,5 +1,6 @@
 function [RGB]=ReadBinPPM(fileName)
 % READBINPPM	reads a binary PPM file and returns an m-by-n-by-3 matrix in [0..255]
+% Copyright 2002 University of Central Florida, MIT License
 
 %Sohaib Khan: June 16 1999
 

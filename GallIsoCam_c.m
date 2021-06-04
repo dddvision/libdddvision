@@ -1,6 +1,7 @@
 function [c1,c2,c3,m]=GallIsoCam_c(m,n,FOV)
 %FOV is the horizontal field of view in radians, typically 2*pi
 %not verified
+% Copyright 2006 David D. Diel, MIT License
 
 [right,down]=meshgrid((1:n)*(2/(n-1))+(1+n)/(1-n),(1:m)*2/(n-1)+(m+1)/(1-n)); %verified
 

@@ -7,6 +7,7 @@
 % ans = 2
 % >> c.count
 % ans = 3
+% Public Domain
 classdef Counter < handle
   properties
     x

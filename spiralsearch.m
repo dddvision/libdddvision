@@ -6,6 +6,7 @@
 % 
 % OUTPUT
 % ij = nearby indices of true element, 2-by-1
+% Copyright 2006 David D. Diel, MIT License
 function ij = spiralsearch(h,ijo)
 
 [I,J]=size(h);

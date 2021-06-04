@@ -7,6 +7,7 @@
 % @note
 % Smoothing works in conjunction with a scaling kenel to estimate gradients at a finer scale.
 % The image border is extended in order to pre-adjust for the loss of border in the gradient operation.
+% Copyright 2006 David D. Diel, MIT License
 function [gi, gj, gm, theta] = fineEdge(x)
 if(nargin==0)
   close('all');

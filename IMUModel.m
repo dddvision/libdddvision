@@ -9,15 +9,7 @@ function IMU = IMUModel(model)
 % RETURN
 %   IMU = structure containing model parameters
 % 
-
-
-
-
-
-
-
-
-
+% Public Domain
 switch model
   
   case 'Ideal'

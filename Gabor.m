@@ -5,6 +5,7 @@
 %phase=periodic phase relative to a cosine
 %win=mask size in two dimensions, must be odd (1-by-2)
 %sig=variance of Gaussian
+% Copyright 2002 University of Central Florida, MIT License
 function [CosMask]=Gabor(k,phase,win,sig)
 
 if ~(mod(win(1),2)&(mod(win(2),2)))

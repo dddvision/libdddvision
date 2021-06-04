@@ -3,6 +3,7 @@
 % input must be an image in range [0,1]
 % sig is the desired standard deviation of each labeled output class
 % means corresponds to each labeled segment's means
+% Copyright 2006 David D. Diel, MIT License
 function [S,means]=HistSeg(I,sig)
 
 [m,n]=size(I);

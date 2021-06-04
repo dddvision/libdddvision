@@ -18,6 +18,7 @@
 % REFERENCE
 % Myoung-Jun Kim, Myung-Soo Kim, and Sung Yong Shin. A General Construction Scheme for Unit Quaternion 
 % Curves with Simple High Order Derivatives. In Proc. of SIGGRAPH, pp. 369-376, 1995.
+% Copyright 2006 David D. Diel, MIT License
 
 function [qi,qidot]=QuatInterp(method,q,t,ti,vdot)
 

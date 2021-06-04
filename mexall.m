@@ -1,3 +1,4 @@
+% Copyright 2006 David D. Diel, MIT License
 mex Plugger\MEXTopBotEdges.cpp -g -argcheck -IPlugger -IAngularCalibration -outdir Plugger
 mex Plugger\MEXTestCorners.cpp -g -argcheck -IPlugger -IAngularCalibration -outdir Plugger
 mex Plugger\MEXFindCorners.cpp -g -argcheck -IPlugger -IAngularCalibration -outdir Plugger

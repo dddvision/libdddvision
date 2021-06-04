@@ -4,8 +4,7 @@ function []=PlotQuat(q,qdot)
 % q = quaternion <scalar,vector> representation of the body orientation (4-by-1)
 % qdot = quaternion <scalar,vector> representation of the body rotation rate (4-by-1)
 %
-% AUTHOR: David D. Diel
-% DATE: July 2003
+% Copyright 2003 David D. Diel, MIT License
 
 
 %points to define the "airplane"

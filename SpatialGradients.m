@@ -5,6 +5,7 @@
 %    y = array (m-by-n)
 %   gi = row gradient (m-by-n)
 %   gj = column gradient (m-by-n)
+% Copyright 2006 David D. Diel, MIT License
 function [gi,gj,gt]=SpatialGradients(y)
 if (size(y,3)~=1)
    error('input must be a 2-dimensional array');

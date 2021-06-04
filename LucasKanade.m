@@ -1,5 +1,6 @@
 function [u, v] = LucasKanade(im1, im2, windowSize);
 %LucasKanade  lucas kanade algorithm, without pyramids (only 1 level);
+% Copyright 2002 University of Central Florida, MIT License
 
 %REVISION: NaN vals are replaced by zeros
 

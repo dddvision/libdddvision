@@ -1,4 +1,5 @@
 % Central chi-square probability density function
+% Public Domain
 function y = chisqpdf(x, k)
   a = k/2;
   b = 2^a;

@@ -1,4 +1,5 @@
 function P=hf_pad(H)
+% Copyright 2006 David D. Diel, MIT License
 
 %normalizing
 H=double(H);

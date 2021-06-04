@@ -1,11 +1,5 @@
 function [Qddav,Qdav,Qav]=PathAverage(Qt,ti)
-
-
-
-
-
-
-
+% Copyright 2006 David D. Diel, MIT License
 
 %precision for Qav
 %Qddav and Qdav are accurate to machine precision

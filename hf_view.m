@@ -1,4 +1,5 @@
 function []=hf_view(HF)
+% Copyright 2006 David D. Diel, MIT License
 
 	surf(HF)
 	shading flat

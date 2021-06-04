@@ -10,6 +10,7 @@
 % >> c.operate(3)
 % ans = 5
 % >> c.delete()
+% Public Domain
 classdef MyClass < handle
   properties (GetAccess = private, SetAccess = private)
     state

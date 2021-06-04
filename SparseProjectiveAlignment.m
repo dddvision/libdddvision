@@ -81,6 +81,7 @@
 % [                ys]
 % [-x*xs*xs - x*ys*ys]
 % [-y*xs*xs - y*ys*ys]
+% Copyright 2006 David D. Diel, MIT License
 
 function [P,lowPeaks,xyCov]=SparseProjectiveAlignment(newImage,highPeaks,method,sigma,numPoints,numIterations,mask)
 

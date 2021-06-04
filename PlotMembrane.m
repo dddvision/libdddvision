@@ -1,4 +1,5 @@
 function handle=PlotMembrane(q,cd,RGB,al)
+% Copyright 2006 David D. Diel, MIT License
 
 x1=cd(:,:,1);
 x2=cd(:,:,2);

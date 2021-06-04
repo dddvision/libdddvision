@@ -6,6 +6,7 @@ function Qout=PathGenerator(To,Tf,method,arg)
 % method = 'Zeros','EulerTrans','ReadKeys','ReadNavDat'
 % arg = parameters required by the method
 % Qout = symbolic expressions for rotation and translation (7-by-1)
+% Copyright 2006 David D. Diel, MIT License
 
 switch method
 

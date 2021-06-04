@@ -1,4 +1,5 @@
 function R=Roberts(I)
+% Public Domain
 
 amask=[
 0  0  0;

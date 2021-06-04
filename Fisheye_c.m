@@ -5,6 +5,7 @@
 % c2=right from center
 % c3=down from center
 % FOV = currently is a hack to create a mask that limits the field-of-view
+% Copyright 2006 David D. Diel, MIT License
 function [c1,c2,c3]=Fisheye_c(m,n,FOV)
 
 phi=zeros(m,n);

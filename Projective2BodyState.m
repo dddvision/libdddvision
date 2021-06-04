@@ -6,6 +6,7 @@ function x=Projective2BodyState(M,n,rho)
 %
 %OUTPUT:
 %   x = body state, [quaternion;position]
+% Copyright 2006 David D. Diel, MIT License
 
 %calculate scaling
 k=n/2*rho;

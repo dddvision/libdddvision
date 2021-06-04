@@ -1,4 +1,5 @@
 function RGB = PixelizeBackground(rgb, mask)
+% Copyright 2006 David D. Diel, MIT License
 
   numLevels = 4;
 

@@ -1,5 +1,6 @@
 function [qi,qid,qidd]=TransInterp(method,q,t,ti,qd)
 % option 'linear' does not output velocities or accelerations
+% Copyright 2006 David D. Diel, MIT License
 
 % INPUT:
 % method = interpolation method

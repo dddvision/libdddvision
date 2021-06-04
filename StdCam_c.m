@@ -1,4 +1,5 @@
 %FOV is field-of-view in width, not height
+% Copyright 2006 David D. Diel, MIT License
 function [c1,c2,c3]=StdCam_c(m,n,FOV)
 rho=cot(FOV/2);
 [right,down]=meshgrid((1:n)*(2/(n-1))+(1+n)/(1-n),(1:m)*2/(n-1)+(m+1)/(1-n)); %verified

@@ -19,6 +19,7 @@
 %
 % Post-Warp Coordinates
 % Hwarp = P*H
+% Copyright 2002 David D. Diel, MIT License
 function y=Warp(y,P,pad,sz)
 
 %size of input images

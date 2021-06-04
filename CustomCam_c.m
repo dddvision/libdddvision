@@ -1,4 +1,5 @@
 function [c1,c2,c3]=CustomCam_c(m,n,fname)
+% Copyright 2006 David D. Diel, MIT License
 
 fid = fopen(fname,'r');
 txt = char(fread(fid,inf,'char')');

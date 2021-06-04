@@ -9,6 +9,7 @@
 % Xp = system state after the update
 % Pp = state covariance after the update
 % K = Kalman gain
+% Public Domain
 function [Xp,Pp,K]=KalmanUpdate(Xm,Pm,C,Yres,Q)
 
 %gain

@@ -27,6 +27,7 @@
 % D = pan right about rotated A axis in degrees per second
 % E = tilt up about rotated B axis in degrees per second
 % F = spin clockwise about rotated C axis in degrees per second
+% Copyright 2006 David D. Diel, MIT License
 function [T, X, Q, Qd, n] = ReadKeys(filename)
 
   % read keyframe data

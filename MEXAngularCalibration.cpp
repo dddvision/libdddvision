@@ -1,3 +1,4 @@
+// Copyright 2006 David D. Diel, MIT License
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>

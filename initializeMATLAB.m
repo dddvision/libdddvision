@@ -1,4 +1,5 @@
 % check MATLAB version
+% Copyright 2006 David D. Diel, MIT License
 try
   matlabVersionString = version('-release');
   matlabVersion = str2double(matlabVersionString(1:4));

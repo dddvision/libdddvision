@@ -1,4 +1,5 @@
 function [ibe,jbe]=TrackFeaturesXCORR(ic,jc,zp,z,halfwin,RESIDUE_THRESH);
+% Copyright 2006 David D. Diel, MIT License
 
 K=size(ic,2);
 [m,n]=size(z);

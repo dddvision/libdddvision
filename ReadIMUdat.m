@@ -7,6 +7,7 @@ function [time,gyro,accel]=ReadIMUdat(path,imufile)
 %    time = time stamp vector (1-by-(n+1))
 %    gyro = gyroscope output (3-by-n)
 %   accel = accelerometer output (3-by-n)
+% Copyright 2006 David D. Diel, MIT License
 
 fn=fullfile(path,imufile);
 

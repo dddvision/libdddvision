@@ -1,4 +1,5 @@
 function d=ReadDepth(filename)
+% Copyright 2006 David D. Diel, MIT License
 
 raw=double(imread(filename));
 red=raw(:,:,1);

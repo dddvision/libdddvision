@@ -8,6 +8,7 @@
 %
 % RETURN VALUES:
 % Q = interpolated quaternions (4-by-n)
+% Public Domain
 
 
 function Q=slerp(qa,qb,u,mode)
