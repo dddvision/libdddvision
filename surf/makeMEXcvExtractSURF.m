@@ -1,5 +1,6 @@
+% Copyright 2006 David D. Diel, MIT License
 fprintf('\nMaking MEXcvExtractSurf.cpp....');
-userPath = path;    
+userPath = path;
 userWarnState=warning('off','all'); % see MATLAB Solution ID 1-5JUPSQ
 addpath(getenv('LD_LIBRARY_PATH'),'-END');
 addpath(getenv('PATH'),'-END');

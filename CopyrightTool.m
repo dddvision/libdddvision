@@ -20,7 +20,7 @@ function varargout = CopyrightTool(varargin)
 % See also: GUIDE, GUIDATA, GUIHANDLES
 % Copyright 2021 David D. Diel, MIT License
 
-% Last Modified by GUIDE v2.5 03-Jun-2021 18:48:21
+% Last Modified by GUIDE v2.5 04-Jun-2021 19:05:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -197,6 +197,7 @@ folder = uigetdir(pwd, 'Select folder');
 handles.SelectFolder.String = folder;
 files = dir(folder);
 F = numel(files);
+handles.FileList.Value = 1;
 handles.FileList.String = {};
 for f = 1:F
   if(~files(f).isdir)
@@ -216,27 +217,32 @@ function FileList_Callback(hObject, eventdata, handles)
 updateSelection(handles);
 
 
-
 function Rights_CreateFcn(hObject, eventdata, handles)
-hObject.String = {'Copyright','Public Domain'};
+hObject.String = {'Copyright', 'Public Domain'};
 
 
 function Year_CreateFcn(hObject, eventdata, handles)
-hObject.String = {'2002','2006','2011','2021'};
+hObject.String = sprintfc('%d', 2000:2021);
 
 
 function Owner_CreateFcn(hObject, eventdata, handles)
-hObject.String = {'David D. Diel','Scientific Systems Company Inc.','University of Central Florida'};
+hObject.String = {'Scientific Systems Company Inc.', 'David D. Diel', 'University of Central Florida'};
 
 
 function License_CreateFcn(hObject, eventdata, handles)
-hObject.String = {'MIT License','New BSD License','All Rights Reserved'};
+hObject.String = {'All Rights Reserved', 'New BSD License', 'MIT License'};
 
 
 
 function Replace_Callback(hObject, eventdata, handles)
 Remove_Callback(hObject, eventdata, handles);
 Append_Callback(hObject, eventdata, handles);
+
+
+function AppendNext_Callback(hObject, eventdata, handles)
+Append_Callback(hObject, eventdata, handles);
+handles.FileList.Value = min(handles.FileList.Value+1, numel(handles.FileList.String));
+updateSelection(handles);
 
 
 function Append_Callback(hObject, eventdata, handles)
@@ -275,5 +281,9 @@ end
 
 function Edit_Callback(hObject, eventdata, handles)
 fullname = getFullName(handles);
-system(['open ', fullname, ' -a Xcode -W']);
+if(ismac)
+  system(['open ', fullname, ' -a Xcode -W']);
+else
+  system(['gedit ', fullname]);
+end
 updateSelection(handles);
